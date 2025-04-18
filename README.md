@@ -33,20 +33,64 @@ Columns:  `product_id`  `product_category_name`
 I am using MySQL Server as database to store the data in database tables and perform SQL queries. 
 
 ## Objective
-To analyze trends in key performance indicators within the dataset to identify potential issues and evaluate the operational effectiveness of the Olist platform. This analysis aims to uncover areas requiring improvement and is structured across the following two dimensions:
+This project aims to evaluate the performance of the Olist e-commerce platform through a comprehensive analysis of sales and customer-related metrics. The objective is to uncover underlying issues, identify growth opportunities, and provide actionable insights for platform optimization. 
 
+
+## Define the problems:
 1. Platform Sales
 
 - What are the overall trends in order volume and transaction value over time?
-(Objective: Understand sales growth or decline patterns.)
 
 - How are sales orders distributed across different geographical regions?
-(Objective: Identify high-performing and underperforming locations.)
 
 - How do order trends vary by order status and reviews (e.g., delivered, canceled, in transit)?
-(Objective: Evaluate order lifecycle efficiency and potential bottlenecks.)
 
 - Which products generate the highest number of orders and the most revenue?
-(Objective: Highlight top-performing products in terms of volume and value.)
 
-3. Customer
+
+2. Customer
+- Who are our customers?
+  - Are they concentrated in specific regions or cities?
+
+- How do customers interact to out platform?
+  - How many are one-time buyers vs. repeat customers?
+  
+- How loyal are our customers?
+ - How recently did they make their last purchase?
+
+- Are there any segments of customers worth targeting?
+
+- Are there any issues in customer experience?
+Are there common complaints or cancellations from specific customers or regions?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

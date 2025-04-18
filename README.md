@@ -29,6 +29,24 @@ Columns:  `order_id`  `customer_id`  `order_status`  `order_purchase_timestamp` 
 10. olist_products_dataset.csv
 Columns:  `product_id`  `product_category_name`
 
+## Data Analysis tool
+I am using MySQL Server as database to store the data in database tables and perform SQL queries. 
 
-## Objectice
+## Objective
+To analyze trends in key performance indicators within the dataset to identify potential issues and evaluate the operational effectiveness of the Olist platform. This analysis aims to uncover areas requiring improvement and is structured across the following two dimensions:
 
+1. Platform Sales
+
+- What are the overall trends in order volume and transaction value over time?
+(Objective: Understand sales growth or decline patterns.)
+
+- How are sales orders distributed across different geographical regions?
+(Objective: Identify high-performing and underperforming locations.)
+
+- How do order trends vary by order status and reviews (e.g., delivered, canceled, in transit)?
+(Objective: Evaluate order lifecycle efficiency and potential bottlenecks.)
+
+- Which products generate the highest number of orders and the most revenue?
+(Objective: Highlight top-performing products in terms of volume and value.)
+
+3. Customer

@@ -12,21 +12,27 @@ The dataset used for this project is sourced from [Kaggle](https://www.kaggle.co
 For this project, six key tables from the dataset are utilized：
 
 1. `olist_customers_dataset.csv`
+
 Columns:  `customer_id`  `customer_unique_id`  `customer_zip_code_prefix`  `customer_city`  `customer_state`
 
 2. `olist_order_items_dataset.csv`
+
 Columns:  `order_id`  `order_item_id`  `product_id`  `seller_id`  `shipping_limit_date`  `price`  `freight_value`
 
 3. `olist_order_payments_dataset.csv`
+
 Columns:  `order_id`  `payment_sequential`  `payment_type`  `payment_installments`  `payment_value`
 
 4. `olist_order_reviews_dataset.csv`
+
 Columns:  `review_id`  `order_id`  `review_score`  `review_comment_title`  `review_comment_message`  `review_creation_date`  `review_answer_timestamp`
 
 5. `olist_orders_dataset.csv`
+
 Columns:  `order_id`  `customer_id`  `order_status`  `order_purchase_timestamp`  `order_approved_at`  `order_delivered_carrier_date`  `order_delivered_customer_date`  `order_estimated_delivery_date`
 
 6.` olist_products_dataset.csv`  
+
 Columns:  `product_id`  `product_category_name`
 
 ## Data limitation and problem
@@ -93,7 +99,11 @@ The following steps were taken to ensure data quality and compatibility with MyS
 ### Create Olist Database and Tables in MySQL Server
 
 
-![Screenshot 2025-04-18 at 8 43 59 PM](https://github.com/user-attachments/assets/5c4028eb-4d27-4c55-bc72-7794d1d90a2c)
+
+
+### Exploratory Data Analysis and Business Insights
+
+
 
 
 

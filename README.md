@@ -90,10 +90,10 @@ The following steps were taken to ensure data quality and compatibility with MyS
 
 
 
+### Create Olist Database and Tables in MySQL Server
 
 
-
-
+![Screenshot 2025-04-18 at 8 43 59 PM](https://github.com/user-attachments/assets/5c4028eb-4d27-4c55-bc72-7794d1d90a2c)
 
 
 

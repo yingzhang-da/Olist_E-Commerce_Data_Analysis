@@ -57,7 +57,7 @@ This project aims to evaluate the performance of the Olist e-commerce platform t
 
 - How do order trends vary by order status and reviews (e.g., delivered, canceled, in transit)?
 
-- Which products generate the highest number of orders and the most revenue?
+- Which products generate the highest number of orders, and which don't?
 
 
 2. Customer
@@ -107,7 +107,7 @@ The following steps were taken to ensure data quality and compatibility with MyS
 **Sales Performance**
 
 <details>
-<summary> Show Sales Trend by Date Query</summary>
+<summary> Show SQL Query: Sales Trend by Date</summary>
 
 ```sql
 SELECT
@@ -125,9 +125,8 @@ ORDER BY 1;
 
 
 
-
 <details>
-<summary> Show Monthly Orders and Average Review Score Trend Query</summary>
+<summary> Show SQL Query: Orders Trend By Date </summary>
 
 ```sql
 SELECT 
@@ -141,33 +140,12 @@ WHERE
     AND order_purchase_timestamp < '2018-09-01'
 GROUP BY 1
 ORDER BY 1;
-
--- Average review score by order date, including all order statuses (e.g., delivered, canceled, etc.)
-SELECT
-    DATE_FORMAT(o.order_date, '%Y-%m') AS order_month,
-    ROUND(AVG(r.review_score), 1) AS avg_review_score
-FROM orders_dataset o
-JOIN order_reviews r ON o.order_id = r.order_id
-WHERE 
-    order_status = 'delivered'
-GROUP BY 1
-ORDER BY 1;
 ```
 </details>
 
+<img src="https://github.com/user-attachments/assets/a4a4262e-06d7-44a0-b135-d144125a8d61" width="200" />
+<img src="https://github.com/user-attachments/assets/89033553-32aa-4a30-83ae-b390d4f5c137" width="600" />
 
-The following results show the monthly order trend and average review score by date for orders with a delivered status.
-
-<p float="left">
-  <img src="https://github.com/user-attachments/assets/a4a4262e-06d7-44a0-b135-d144125a8d61" width="200" />
-  <img src="https://github.com/user-attachments/assets/a2ce94c9-8dca-4021-b73c-8194b74987ba" width="200" />
-</p>
-
-In tableau, i combined these two chart to a dual chart. you can use order status filter to see the order trend with average review score by different order status(e.g. dilivered, canceled.)
-<p float="left">
-  <img src="https://github.com/user-attachments/assets/21d65910-e2df-4756-8dd9-fd60b20f6b4b" width="500" />
-  <img src="https://github.com/user-attachments/assets/f71ddaec-4a89-4cba-a998-6b0e787f85f9" width="500" />
-</p>
 
 <details>
 <summary> Show 2017 vs 2018 Sales & Orders (January to August) Query</summary>
@@ -260,14 +238,108 @@ Target High-Income Cities: Brasília and Niterói are ideal for premium products
 Improve Northeast Penetration: Invest in logistics for Salvador to boost BA’s sales, focusing on consumer goods and tourism-related products.
 Monitor Smaller Markets: Goiás and Espírito Santo are growing; consider targeted campaigns in Goiânia and Vitória.)
 
-**Top 5 Product Categories by Order
+**Which products generate the highest number of orders, and which do not?
+<details>
+<summary> Show Top 5 Product Categories Query</summary>
+
+```sql
+WITH category_order AS(
+SELECTt
+    p.product_category_name AS product_category_name,
+    COUNT(DISTINCT oi.order_id) AS total_orders
+FROM 
+    orders_items oi
+JOIN 
+    orders_dataset o ON oi.order_id = o.order_id
+JOIN 
+    products p ON oi.product_id = p.product_id
+WHERE 
+    o.order_status = 'delivered'
+GROUP BY 
+    1
+),
+total_order AS(
+	SELECT SUM(total_orders) AS overall_order
+    FROM category_order
+)
+SELECT
+    category_order.product_category_name,
+    category_order.total_orders,
+    category_order.total_orders/total_order.overall_order AS percent_of_total_order
+FROM category_order,total_order
+ORDER BY 2 DESC
+LIMIT 5;
+```
+</details>
+
+<details>
+<summary> Show Botton 5 Product Categories Query</summary>
+
+```sql
+
+SELECT
+    p.product_category_name,
+    COUNT(DISTINCT oi.order_id) AS total_orders
+FROM 
+    orders_items oi
+JOIN 
+    orders_dataset o ON oi.order_id = o.order_id
+JOIN 
+    products p ON oi.product_id = p.product_id
+WHERE 
+    o.order_status = 'delivered'
+GROUP BY 1
+ORDER BY 2 
+LIMIT 5;
+```
+</details>
 
 
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/7eb3b6b9-b3c6-4c45-a9d1-62d27101d6f3" width="600" />
+  <img src="https://github.com/user-attachments/assets/f960b1b8-221f-4e3f-958f-d8502710e603" width="600" />
+</p>
 
 
+High-demand categories such as Bed & Bath, Health & Beauty, and Sports & Leisure suggest that customers prioritize essentials items, personal care products, and lifestyle. These are likely stable, high-turnover categories to focus on for inventory and marketing.
+
+Low-demand categories such as security and services,fashion childrens clothes indicate niche markets or declining relevance. Consider reducing stock or reevaluating their place in the catalog.
+
+**Customer Review Scores**
+
+</details>
+
+<details>
+<summary> Show SQL Query: the number of reviews grouped by each rating score </summary>
+
+```sql
+SELECT
+    r.review_score,
+    COUNT(DISTINCT o.order_id) AS review_count,
+    ROUND(
+        COUNT(DISTINCT o.order_id) * 100.0 / 
+        SUM(COUNT(DISTINCT o.order_id)) OVER (), 
+        2
+    ) AS percent_of_total
+FROM order_reviews r
+JOIN orders_dataset o ON r.order_id = o.order_id
+-- WHERE order_status = 'canceled'
+GROUP BY 1
+ORDER BY 1 DESC;
+LIMIT 5;
+```
+</details>
 
 
+<img src="https://github.com/user-attachments/assets/4d986af8-93d1-4057-b5f3-8e54588eddb1" width="200" />
+<img src="https://github.com/user-attachments/assets/1589d7b2-ca59-4a90-abca-0c7ced2dbe88" width="680" />
 
+
+In tableau, i combined these two chart to a dual chart. you can use order status filter to see the order trend with average review score by different order status(e.g. dilivered, canceled.)
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/21d65910-e2df-4756-8dd9-fd60b20f6b4b" width="680" />
+  <img src="https://github.com/user-attachments/assets/f71ddaec-4a89-4cba-a998-6b0e787f85f9" width="680" />
+</p>
 
 next step:
 1. The business should investigate the drop in review scores during high order periods to improve customer satisfaction, possibly by optimizing operations or increasing capacity during peak times. The decline in payment value and orders in 2018 deserves further analysis to understand its root causes.

@@ -11,36 +11,36 @@ The dataset used for this project is sourced from [Kaggle](https://www.kaggle.co
 
 For this project, six key tables from the dataset are utilized：
 
-1. `olist_customers_dataset.csv`
+1. "olist_customers_dataset.csv"
 
 Columns:  `customer_id`  `customer_unique_id`  `customer_zip_code_prefix`  `customer_city`  `customer_state`
 
-2. `olist_order_items_dataset.csv`
+2. "olist_order_items_dataset.csv"
 
 Columns:  `order_id`  `order_item_id`  `product_id`  `seller_id`  `shipping_limit_date`  `price`  `freight_value`
 
-3. `olist_order_payments_dataset.csv`
+3. "olist_order_payments_dataset.csv"
 
 Columns:  `order_id`  `payment_sequential`  `payment_type`  `payment_installments`  `payment_value`
 
-4. `olist_order_reviews_dataset.csv`
+4. "olist_order_reviews_dataset.csv"
 
 Columns:  `review_id`  `order_id`  `review_score`  `review_comment_title`  `review_comment_message`  `review_creation_date`  `review_answer_timestamp`
 
-5. `olist_orders_dataset.csv`
+5. "olist_orders_dataset.csv"
 
 Columns:  `order_id`  `customer_id`  `order_status`  `order_purchase_timestamp`  `order_approved_at`  `order_delivered_carrier_date`  `order_delivered_customer_date`  `order_estimated_delivery_date`
 
-6.` olist_products_dataset.csv`  
+6. "olist_products_dataset.csv"
 
 Columns:  `product_id`  `product_category_name`
 
-## Data limitation and problem
 
-The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**, However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. Therefore, to ensure consistency in the data, the date range for this analysis has been narrowed to January 1, 2017 to August 31, 2018.
+## Data limitation and problem
+The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**, However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. To ensure data reliability and analytical consistency, the date range of this analysis has been limited to the period between January 1, 2017 and August 31, 2018.
+
 
 ## Data Analysis tool
-
 In this project, MySQL Server is used as the database to store and manage the dataset. SQL is applied for querying, data exploration, and analysis. The processed data is then imported into Tableau to create interactive visualizations and dashboards for deeper insights.
 
 
@@ -103,8 +103,64 @@ The following steps were taken to ensure data quality and compatibility with MyS
 
 ### Exploratory Data Analysis and Business Insights
 
+**What are the overall trends in order volume and transaction value over time?**
 
-**Sales Performance**
+
+1.Key Metrics: Total Sales, Total Orders, Total Customers, Average Order Value(AOV)
+Year over Year Comparison (Jan-Aug 2017 vs. Jan-Aug 2018)
+
+
+
+
+<details>
+<summary> Show 2017 vs 2018 Sales & Orders (January to August) Query</summary>
+
+```sql
+SELECT
+    CASE 
+	WHEN YEAR(o.order_purchase_timestamp)= 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2017 Jan-Aug'
+	WHEN YEAR(o.order_purchase_timestamp)= 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2018 Jan-Aug'
+    END AS year_range,
+    ROUND(SUM(pay.payment_value),2) AS gmv
+FROM orders_dataset o
+JOIN order_payments pay ON o.order_id = pay.order_id
+WHERE order_status = 'delivered'
+AND (
+(YEAR(o.order_purchase_timestamp)= 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
+OR (YEAR(o.order_purchase_timestamp)= 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
+)
+GROUP BY 1
+ORDER BY 1;
+
+SELECT
+    CASE 
+        WHEN YEAR(o.order_purchase_timestamp) = 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2017 Jan-Aug'
+        WHEN YEAR(o.order_purchase_timestamp) = 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2018 Jan-Aug'
+    END AS year_range,
+    COUNT(DISTINCT o.order_id) AS total_order
+FROM orders_dataset o
+JOIN orders_items oi ON o.order_id = oi.order_id
+WHERE o.order_status = 'delivered'
+  AND (
+      (YEAR(o.order_purchase_timestamp) = 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
+      OR (YEAR(o.order_purchase_timestamp) = 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
+  )
+GROUP BY year_range;
+```
+</details>
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/0f3fc57c-b4a1-47e0-bccf-bd56d0528d5e" width="200" />
+  <img src="https://github.com/user-attachments/assets/0db58073-0d8f-4318-81e7-aab418e70efd" width="200" />
+</p>
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/16145eff-d378-49ce-9b6f-2a1dbb88e62f" width="200" />
+  <img src="https://github.com/user-attachments/assets/5de6b2da-c407-42eb-8b27-237d100e9c0a" width="200" />
+</p>
+
+
+
 
 <details>
 <summary> Show SQL Query: Sales Trend by Date</summary>
@@ -145,56 +201,6 @@ ORDER BY 1;
 
 <img src="https://github.com/user-attachments/assets/a4a4262e-06d7-44a0-b135-d144125a8d61" width="200" />
 <img src="https://github.com/user-attachments/assets/89033553-32aa-4a30-83ae-b390d4f5c137" width="560" />
-
-
-<details>
-<summary> Show 2017 vs 2018 Sales & Orders (January to August) Query</summary>
-
-```sql
-SELECT
-    CASE 
-	WHEN YEAR(o.order_purchase_timestamp)= 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2017 Jan-Aug'
-	WHEN YEAR(o.order_purchase_timestamp)= 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2018 Jan-Aug'
-    END AS year_range,
-    ROUND(SUM(pay.payment_value),2) AS gmv
-FROM orders_dataset o
-JOIN order_payments pay ON o.order_id = pay.order_id
-WHERE order_status = 'delivered'
-AND (
-(YEAR(o.order_purchase_timestamp)= 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
-OR (YEAR(o.order_purchase_timestamp)= 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
-)
-GROUP BY 1
-ORDER BY 1;
-
-SELECT
-    CASE 
-        WHEN YEAR(o.order_purchase_timestamp) = 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2017 Jan-Aug'
-        WHEN YEAR(o.order_purchase_timestamp) = 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2018 Jan-Aug'
-    END AS year_range,
-    COUNT(DISTINCT o.order_id) AS total_order
-FROM orders_dataset o
-JOIN orders_items oi ON o.order_id = oi.order_id
-WHERE o.order_status = 'delivered'
-  AND (
-      (YEAR(o.order_purchase_timestamp) = 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
-      OR (YEAR(o.order_purchase_timestamp) = 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
-  )
-GROUP BY year_range;
-
-```
-</details>
-
-<p float="left">
-  <img src="https://github.com/user-attachments/assets/0f3fc57c-b4a1-47e0-bccf-bd56d0528d5e" width="200" />
-  <img src="https://github.com/user-attachments/assets/0db58073-0d8f-4318-81e7-aab418e70efd" width="200" />
-</p>
-
-<p float="left">
-  <img src="https://github.com/user-attachments/assets/16145eff-d378-49ce-9b6f-2a1dbb88e62f" width="200" />
-  <img src="https://github.com/user-attachments/assets/5de6b2da-c407-42eb-8b27-237d100e9c0a" width="200" />
-</p>
-
 
 **insights:**
 Analyzing the year’s sales data, it is evident that sales commenced at R$127,550 in January 2017 and exhibited a consistent upward trajectory. The peak sales occurred in November 2017, reaching R$1153,53k. Notably, the surge in orders around November 24 was likely attributed to the Black Friday event.
@@ -332,18 +338,31 @@ LIMIT 5;
 
 
 <img src="https://github.com/user-attachments/assets/4d986af8-93d1-4057-b5f3-8e54588eddb1" width="200" />
-<img src="https://github.com/user-attachments/assets/1589d7b2-ca59-4a90-abca-0c7ced2dbe88" width="680" />
+
+<img src="https://github.com/user-attachments/assets/1589d7b2-ca59-4a90-abca-0c7ced2dbe88" width="580" />
 
 
-In tableau, i combined these two chart to a dual chart. you can use order status filter to see the order trend with average review score by different order status(e.g. dilivered, canceled.)
+Customer reviews significantly influence purchasing decisions, often determining whether a consumer chooses one business over another. Between January 2017 and August 2018, Olist's e-commerce platform received 11,293 one-star reviews and 3,136 two-star reviews — together accounting for approximately 15% of all reviews during that period. 
+
+
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/21d65910-e2df-4756-8dd9-fd60b20f6b4b" width="680" />
-  <img src="https://github.com/user-attachments/assets/f71ddaec-4a89-4cba-a998-6b0e787f85f9" width="680" />
+  <img src="https://github.com/user-attachments/assets/d608e968-0a6a-47c1-b7a3-28828289a0cb" width="580" />
+  <img src="https://github.com/user-attachments/assets/c8022b2f-da58-453c-8cd8-8ec81174e6af" width="580" />
 </p>
 
-next step:
-1. The business should investigate the drop in review scores during high order periods to improve customer satisfaction, possibly by optimizing operations or increasing capacity during peak times. The decline in payment value and orders in 2018 deserves further analysis to understand its root causes.
+The depicted figure shows the average rating trend line as order volume fluctuates. The negative correlation observed between order volume peaks and rating declines indicates that service quality may encounter challenges in maintaining its standards as demand increases. 
 
-%%%%%%%%%%5Let's look at the orange line on the order chart, the average review score remains relatively stable but drops when order volume peaks, suggesting that potential strain on service quality during  periods of high demand.
+The lowest average review scores occurred around November 24, 2017, and March 2, 2018 — both of which align with major holidays in Brazil (Black Friday and Carnival, respectively). These periods likely experienced a surge in order volume, which may have strained logistics and customer service, resulting in a dip in customer satisfaction.
+
+This highlights the critical need for proactive operational planning during high-demand seasons to preserve customer experience.
+
+When filtering for orders with a 'canceled' status, the overall average review score drops below 3. This indicates a strong correlation between order cancellations and negative customer experiences.
+
+
+next step:
+The business should closely investigate the decline in review scores during periods of high order volume. This trend suggests potential operational strain, and addressing it may involve optimizing logistics, improving fulfillment processes, or scaling support capacity during peak demand. Enhancing service performance in these critical periods can directly improve customer satisfaction and loyalty."
+Additionally, the observed decline in both payment value and order volume in 2018 warrants further analysis. Understanding the underlying causes—whether market saturation, increased competition, pricing issues, or changes in consumer behavior—will be essential for developing informed strategies to regain momentum and sustain growth.
+
+
 
 

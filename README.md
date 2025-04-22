@@ -121,7 +121,7 @@ ORDER BY 1;
 ```
 </details>
 
-<img src="https://github.com/user-attachments/assets/da29476c-d2a7-4289-99db-438812f573ae" width="680" />
+<img src="https://github.com/user-attachments/assets/da29476c-d2a7-4289-99db-438812f573ae" width="580" />
 
 
 
@@ -144,7 +144,7 @@ ORDER BY 1;
 </details>
 
 <img src="https://github.com/user-attachments/assets/a4a4262e-06d7-44a0-b135-d144125a8d61" width="200" />
-<img src="https://github.com/user-attachments/assets/89033553-32aa-4a30-83ae-b390d4f5c137" width="600" />
+<img src="https://github.com/user-attachments/assets/89033553-32aa-4a30-83ae-b390d4f5c137" width="560" />
 
 
 <details>

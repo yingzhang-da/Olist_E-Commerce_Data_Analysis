@@ -104,10 +104,10 @@ The following steps were taken to ensure data quality and compatibility with MyS
 ### Exploratory Data Analysis and Business Insights
 
 
-
+**Sales Performance**
 
 <details>
-<summary> Show Monthly Sales Query</summary>
+<summary> Show Sales Trend by Date Query</summary>
 
 ```sql
 SELECT
@@ -120,6 +120,9 @@ GROUP BY 1
 ORDER BY 1;
 ```
 </details>
+
+<img src="https://github.com/user-attachments/assets/da29476c-d2a7-4289-99db-438812f573ae" width="680" />
+
 
 
 
@@ -172,8 +175,8 @@ In tableau, i combined these two chart to a dual chart. you can use order status
 ```sql
 SELECT
     CASE 
-		WHEN YEAR(o.order_purchase_timestamp)= 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2017 Jan-Aug'
-		WHEN YEAR(o.order_purchase_timestamp)= 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2018 Jan-Aug'
+	WHEN YEAR(o.order_purchase_timestamp)= 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2017 Jan-Aug'
+	WHEN YEAR(o.order_purchase_timestamp)= 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2018 Jan-Aug'
     END AS year_range,
     ROUND(SUM(pay.payment_value),2) AS gmv
 FROM orders_dataset o
@@ -215,20 +218,60 @@ GROUP BY year_range;
 </p>
 
 
+**insights:**
+Analyzing the year’s sales data, it is evident that sales commenced at R$127,550 in January 2017 and exhibited a consistent upward trajectory. The peak sales occurred in November 2017, reaching R$1153,53k. Notably, the surge in orders around November 24 was likely attributed to the Black Friday event.
+
+Following the peak, sales declined to R$966,51k in February 2018 and stabilized within the range of R$1120.68k to R$1128.84k until May 2018. Subsequently, sales experienced a decline to R$985.41k by August,2018.
+
+A comparative analysis of the January–August period in 2018 demonstrates a 143% increase in sales compared to the corresponding period in 2017. However, despite this substantial growth, 2018 lacked a sustained upward trend, with sales reaching a plateau, unlike the consistent growth trajectory observed in 2017.
+
+Correspondingly, orders and customers both experienced significantly growth in 2018
+
+**How are sales orders distributed across different geographical regions?**
+
+<details>
+<summary> Show State level Sale,orders and customer Trend by Date Query</summary>
+
+```sql
+SELECT
+    c.customer_state AS state,
+    COUNT(DISTINCT o.order_id) AS total_orders,
+    ROUND(SUM(p.payment_value), 2) AS total_revenue,
+    COUNT(DISTINCT c.customer_unique_id) AS total_customers
+FROM orders_dataset o
+JOIN order_payments p ON o.order_id = p.order_id
+JOIN customers c ON o.customer_id = c.customer_id
+WHERE o.order_status = 'delivered'
+GROUP BY c.customer_state
+ORDER BY total_revenue DESC;
+```
+</details>
+
+<img src="https://github.com/user-attachments/assets/873ac07c-5db4-4f1e-9448-e73d534a59d8" width="680" />
+<img src="https://github.com/user-attachments/assets/306a8306-02a8-4bbc-af01-af8752bcf27d" width="680" />
+
+No doubt,over 60% of revenue comes from SP, RJ, and MG. The Southeast region of Brazil has the largest population. 
+
+(Based on the sales rankings:
+
+Focus on SP, RJ, MG: Allocate marketing and inventory to these states, emphasizing São Paulo, Rio, and Belo Horizonte. Promote high-margin categories like electronics and fashion.
+Strengthen Logistics in PR, RS, SC: Leverage their efficient infrastructure for faster deliveries, especially in Curitiba and Porto Alegre.
+Target High-Income Cities: Brasília and Niterói are ideal for premium products due to affluent consumers.
+Improve Northeast Penetration: Invest in logistics for Salvador to boost BA’s sales, focusing on consumer goods and tourism-related products.
+Monitor Smaller Markets: Goiás and Espírito Santo are growing; consider targeted campaigns in Goiânia and Vitória.)
+
+**Top 5 Product Categories by Order
 
 
 
-insights: 
-Looking at the year overall, sales started at R$127,650 in January 2017. followed by a steady upward trend, peaking at R$153,530 in November 2017(The spike in orders around November 24 was likely driven by Black Friday).After a dip to R$96.51K in February 2018, it stabilizes around R$120K-R$132K until May 2018, then declines to R$98.41K by July 2018.
 
-A year-over-year comparison of the January–August period reveals a 143% increase in sales in 2018 compared to the same period in 2017.However, despite this significant growth, 2018 lacked a sustained upward trend, with sales plateauing — unlike the consistent growth trajectory observed in 2017.
 
-Overall, the order trend follows a similar pattern to sales revenue, with both showing steady growth.
 
-Let's look at the orange line on the order chart, the average review score remains relatively stable but drops when order volume peaks, suggesting that potential strain on service quality during  periods of high demand.
+
 
 next step:
 1. The business should investigate the drop in review scores during high order periods to improve customer satisfaction, possibly by optimizing operations or increasing capacity during peak times. The decline in payment value and orders in 2018 deserves further analysis to understand its root causes.
 
+%%%%%%%%%%5Let's look at the orange line on the order chart, the average review score remains relatively stable but drops when order volume peaks, suggesting that potential strain on service quality during  periods of high demand.
 
 

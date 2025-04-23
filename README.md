@@ -392,6 +392,87 @@ next step:
 The business should closely investigate the decline in review scores during periods of high order volume. This trend suggests potential operational strain, and addressing it may involve optimizing logistics, improving fulfillment processes, or scaling support capacity during peak demand. Enhancing service performance in these critical periods can directly improve customer satisfaction and loyalty."
 Additionally, the observed decline in both payment value and order volume in 2018 warrants further analysis. Understanding the underlying causes—whether market saturation, increased competition, pricing issues, or changes in consumer behavior—will be essential for developing informed strategies to regain momentum and sustain growth.
 
+#### Customer Behavior###
 
+- How do customers interact to out platform?
+  - How many are one-time buyers vs. repeat customers?
+  
+implementing RFM segmentation using quantile-based scoring (NTILE)
+
+<details>
+<summary> Show SQL Query: Customer Segmentation </summary>
+
+```sql
+SELECT 
+    r.customer_segment AS customer_group,
+    COUNT(DISTINCT r.customer_unique_id) AS customers,
+    ROUND(COUNT(DISTINCT r.customer_unique_id) * 1.0 / SUM(COUNT(DISTINCT r.customer_unique_id)) OVER(), 2) AS percent_of_all_customers,
+    ROUND(AVG(b.monetary), 2) AS avg_spend_per_customer,
+    ROUND(SUM(b.monetary), 2) AS total_revenue
+FROM rfm_model_customer_division r
+JOIN rfm_base_data b ON r.customer_unique_id = b.customer_unique_id
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+</details>
+
+<img src="https://github.com/user-attachments/assets/97b33c99-b3c2-474a-8692-16956754231e" width="580" />
+
+The figure shown 97% customer are one time buyer,which generate the R$14,515.12k revenue , the bulk of total revenue (R$15,375.88k). This heavy reliance on one time buyers indicates a lack of customer retention. it can be risky for long term growth as acquiring new customers is often more expensive than retaining existing ones. 
+
+Let’s break down customer groups based on activity and value contribution
+
+<details>
+<summary> Show SQL Query: Customer Activity Status </summary>
+```sql
+CREATE TEMPORARY TABLE rfm_with_status AS
+SELECT 
+    customer_unique_id,
+    recency,
+    frequency,
+    monetary,
+    CASE 
+        WHEN recency <= 180 THEN 'Active'
+        WHEN recency > 180 AND recency <= 365 THEN 'Idle'
+        ELSE 'Churned'
+    END AS customer_status
+FROM rfm_base_data;
+```
+</details>
+
+<img src="https://github.com/user-attachments/assets/89c1cd67-d935-4796-828f-4ee7bfbfed33" width="580" />
+
+
+The Champions group, with 77% active customers and an average spend of R$376.2, represents a small yet valuable high-spending segment with strong engagement. Meanwhile, Loyal Customers face an 81% idle rate, indicating a need for re-engagement, while the At-Risk segment (995 customers) is particularly concerning, with 70% already churned, underscoring the urgency for retention efforts. One-Time Buyers, despite driving most revenue, lack loyalty, with 42% idle and 29% churned. To ensure sustainable growth, the business should prioritize converting one-time buyers into repeat customers and revitalizing the idle and at-risk segments.
+
+**Payment Method Preference**
+<details>
+<summary> Show SQL Query: Customer Activity Status </summary>
+```sql
+SELECT
+    p.payment_type AS payment_method,
+    COUNT(DISTINCT cu.customer_unique_id) AS total_customers,
+    SUM(p.payment_value) AS payment_value,
+    ROUND(
+        SUM(p.payment_value) * 1.0 / SUM(SUM(p.payment_value)) OVER (), 
+        4
+    ) AS payment_share,
+    ROUND(AVG(p.payment_value), 2) AS average_consumption
+FROM order_payments p
+JOIN orders_dataset o ON p.order_id = o.order_id
+JOIN customers cu ON o.customer_id = cu.customer_id
+WHERE o.order_status = 'delivered'
+GROUP BY p.payment_type
+ORDER BY payment_value DESC;
+```
+</details>
+<img src="https://github.com/user-attachments/assets/31392408-01eb-4ab4-b84f-9efdb8248e7f" width="580" />
+
+
+
+
+
+- How loyal are our customers?
+  - How recently did they make their last purchase?
 
 

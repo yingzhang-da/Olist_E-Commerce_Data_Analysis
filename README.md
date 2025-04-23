@@ -106,16 +106,13 @@ The following steps were taken to ensure data quality and compatibility with MyS
 **What are the overall trends in order volume and transaction value over time?**
 
 
-1.Key Metrics: Total Sales, Total Orders, Total Customers, Average Order Value(AOV)
-Year over Year Comparison (Jan-Aug 2017 vs. Jan-Aug 2018)
-
-
-
+1.Key Metrics: Total Sales, Total Orders, Total Customers, Average Order Value(AOV)  
 
 <details>
-<summary> Show 2017 vs 2018 Sales & Orders (January to August) Query</summary>
+<summary> Show SQL Query: Year over Year Comparison (Jan-Aug 2017 vs. Jan-Aug 2018)</summary>
 
 ```sql
+-- Total Sales
 SELECT
     CASE 
 	WHEN YEAR(o.order_purchase_timestamp)= 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2017 Jan-Aug'
@@ -125,13 +122,12 @@ SELECT
 FROM orders_dataset o
 JOIN order_payments pay ON o.order_id = pay.order_id
 WHERE order_status = 'delivered'
-AND (
-(YEAR(o.order_purchase_timestamp)= 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
-OR (YEAR(o.order_purchase_timestamp)= 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
-)
+    AND YEAR(order_purchase_timestamp) IN (2017, 2018)
+    AND MONTH(order_purchase_timestamp) BETWEEN 1 AND 8
 GROUP BY 1
 ORDER BY 1;
 
+-- Total Orders
 SELECT
     CASE 
         WHEN YEAR(o.order_purchase_timestamp) = 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2017 Jan-Aug'
@@ -146,18 +142,53 @@ WHERE o.order_status = 'delivered'
       OR (YEAR(o.order_purchase_timestamp) = 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
   )
 GROUP BY year_range;
+
+-- Total Customers
+SELECT 
+    CASE 
+        WHEN YEAR(o.order_purchase_timestamp) = 2017 THEN '2017 Jan-Aug'
+        WHEN YEAR(o.order_purchase_timestamp) = 2018 THEN '2018 Jan-Aug'
+    END AS year_range,
+    COUNT(DISTINCT c.customer_unique_id) AS total_order
+FROM orders_dataset o
+JOIN customers c ON o.customer_id = c.customer_id
+WHERE order_status = 'delivered'
+    AND YEAR(order_purchase_timestamp) IN (2017, 2018)
+    AND MONTH(order_purchase_timestamp) BETWEEN 1 AND 8
+GROUP BY year_range;
+
+-- Average Order Value(AOV) 
+SELECT
+    CASE 
+        WHEN YEAR(o.order_purchase_timestamp) = 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2017 Jan-Aug'
+        WHEN YEAR(o.order_purchase_timestamp) = 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8 THEN '2018 Jan-Aug'
+    END AS year_range,
+    ROUND(SUM(pay.payment_value) / COUNT(DISTINCT o.order_id), 2) AS avg_order_value
+FROM orders_dataset o
+JOIN order_payments pay ON o.order_id = pay.order_id
+WHERE o.order_status = 'delivered'
+  AND YEAR(o.order_purchase_timestamp) IN (2017, 2018)
+  AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8
+GROUP BY year_range
+ORDER BY year_range;
 ```
 </details>
 
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/0f3fc57c-b4a1-47e0-bccf-bd56d0528d5e" width="200" />
-  <img src="https://github.com/user-attachments/assets/0db58073-0d8f-4318-81e7-aab418e70efd" width="200" />
+  <img src="https://github.com/user-attachments/assets/bb9ababa-bcd7-4b52-9c28-297804645dd0" width="200" />
+  <img src="https://github.com/user-attachments/assets/37e96012-da9a-4eeb-ac77-6e5792d3fc74" width="200" />
+  <img src="https://github.com/user-attachments/assets/1fb4728d-fb8f-4dd3-8e01-e2279f4dcff2" width="200" />
+  <img src="https://github.com/user-attachments/assets/1c5443df-d2b6-4614-b835-4c5916c5a0ae" width="200" />
 </p>
 
 <p float="left">
   <img src="https://github.com/user-attachments/assets/16145eff-d378-49ce-9b6f-2a1dbb88e62f" width="200" />
   <img src="https://github.com/user-attachments/assets/5de6b2da-c407-42eb-8b27-237d100e9c0a" width="200" />
+  <img src="https://github.com/user-attachments/assets/4630c021-f2c6-44aa-85b0-25c2ce54a5ae" width="200" />
+  <img src="https://github.com/user-attachments/assets/f4a478c1-3e78-4ccf-9fb5-2cf8fcfd3bbf" width="200" />
 </p>
+
+
 
 
 
@@ -203,9 +234,7 @@ ORDER BY 1;
 <img src="https://github.com/user-attachments/assets/89033553-32aa-4a30-83ae-b390d4f5c137" width="560" />
 
 **insights:**
-Analyzing the year’s sales data, it is evident that sales commenced at R$127,550 in January 2017 and exhibited a consistent upward trajectory. The peak sales occurred in November 2017, reaching R$1153,53k. Notably, the surge in orders around November 24 was likely attributed to the Black Friday event.
-
-Following the peak, sales declined to R$966,51k in February 2018 and stabilized within the range of R$1120.68k to R$1128.84k until May 2018. Subsequently, sales experienced a decline to R$985.41k by August,2018.
+Let’s dive into the year’s sales data. sales started at R$127,550 in January 2017 and exhibited a consistent upward trajectory. The peak sales occurred in November 2017, reaching R$1153,53k. Notably, the surge in orders around November 24 was likely attributed to the Black Friday event. Following the peak, sales declined to R$966,51k in February 2018 and stabilized within the range of R$1120.68k to R$1128.84k until May 2018. Subsequently, sales experienced a decline to R$985.41k by August,2018.
 
 A comparative analysis of the January–August period in 2018 demonstrates a 143% increase in sales compared to the corresponding period in 2017. However, despite this substantial growth, 2018 lacked a sustained upward trend, with sales reaching a plateau, unlike the consistent growth trajectory observed in 2017.
 

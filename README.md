@@ -1,12 +1,71 @@
 # Olist E-Commerce Data Analysis
 
+### Table of Contents
+1. Introduction
+    - 1.1 Context
+    - 1.2 Objective
+    - 1.3 Business Questions to Ask
+2. About the Dataset
+   - 2.1 Data Description
+   - 2.2 Data Limitations
+3. Tools & Technologies
+4. Data Preprocessing
+   - 4.1 Data Cleaning
+   - 4.2 Database Setup
+5. Exploratory Data Analysis(EDA)
+   - 5.1 Key Metrics
+   - 5.2 Sales Trends Over Time
+   - 5.3 Order Volume Trends
+   - 5.4 Geographical Sales Distribution
+   - 5.5 Product Category Performance
+   - 5.6 Customer Review Analysis
+6. Customer Segmentation & Behavior Analysis
+   - 6.1 RFM Customer Group Distribution
+   - 6.2 Customer Activity and Value Breakdown
+   - 6.3 Payment Method Preferences
+   - 6.4 Weekly Customer Activity by Hour
+   - 6.5 Optional: Pareto Analysis(80/20 Principle)
+7. Key Findings & Recommendations -> 
+8. Tableau Dashboard Link
 
+### 1. Introduction
 
-### Context
+**1.1 Context**
 This dataset was generously provided by Olist, the largest department store in Brazilian marketplaces. Olist connects small businesses from all over Brazil to channels without hassle and with a single contract. Those merchants are able to sell their products through the Olist Store and ship them directly to customers using Olist logistics partners.
 
 
-### About Dataset
+**1.2 Objective**
+This project aims to evaluate the performance of the Olist e-commerce platform through a comprehensive analysis of sales and customer-related metrics. The objective is to uncover underlying issues, identify growth opportunities, and provide actionable insights for platform optimization. 
+
+**1.3 Business Questions to Ask:**
+To effectively address Olist's e-commerce challenges, the following business questions will guide the analysis:
+
+1. Platform Sales
+
+- What are the overall trends in order volume and transaction value over time?
+
+- How are sales orders distributed across different geographical regions?
+
+- What patterns can be observed in order volume and behavior when segmented by order status and associated review ratings?
+
+- Which products generate the highest number of orders, and which underperform?
+
+
+2. Customer
+- Who are our customers and are they concentrated in specific regions?
+
+- How do customers interact to our platform and what is the proportion of one-time buyers versus repeat customers?
+  
+- How loyal are our customers, and how recently did they make their last purchase?
+
+- Are there specific customer segments worth targeting for marketing or retention efforts?
+
+- Are there any identifiable issues in customer experience that need to be addressed?
+
+
+### 2. About Dataset
+
+**2.1 Data Description**
 The dataset used for this project is sourced from [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). It has information on 100k orders from 2016 to 2018 made at multiple marketplaces in Brazil. Its features allow viewing an order from multiple dimensions: from order status, price, payment, and freight performance to customer location, product attributes, and finally, reviews written by customers.
 
 For this project, six key tables from the dataset are utilized:
@@ -69,49 +128,18 @@ Columns:
 `product_id`  
 `product_category_name`
 
-
-### Data limitation and problem
-
+**2.2 Data Limitations**
 The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**. However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. To ensure data reliability and analytical consistency, the date range of this analysis has been limited to the period between January 1, 2017 and August 31, 2018.
 
 
-### Data Analysis tool
+### 3. Data Analysis tool
 
 In this project, I used MySQL Server to manage and structure all the datasets, ensuring their organization and accessibility. I connected it to Tableau to develop an interactive Olist e-commerce dashboard. For more complex data analysis,such as customer segmentation, I wrote SQL queries directly in MySQL to process the data, then brought those results into Tableau to create visualizations that uncover meaningful insights for decision-making.  To maintain data consistency between MySQL and Tableau, I also included the SQL queries employed for dataset extraction and preparation, ensuring seamless alignment across both tools.
 
 
-### Objective
+### 4. Data Preprocessing
 
-This project aims to evaluate the performance of the Olist e-commerce platform through a comprehensive analysis of sales and customer-related metrics. The objective is to uncover underlying issues, identify growth opportunities, and provide actionable insights for platform optimization. 
-
-
-### Define the problems:
-1. Platform Sales
-
-- What are the overall trends in order volume and transaction value over time?
-
-- How are sales orders distributed across different geographical regions?
-
-- What patterns can be observed in order volume and behavior when segmented by order status and associated review ratings?
-
-- Which products generate the highest number of orders, and which don't?
-
-
-2. Customer
-- Who are our customers? Are they concentrated in specific regions?
-
-- How do customers interact to our platform? How many are one-time buyers vs. repeat customers?
-  
-- How loyal are our customers? How recently did they make their last purchase?
-
-- Are there any segments of customers worth targeting?
-
-- Are there any issues in customer experience?
-
-
-### 1.Data Preprocessing
-
-**1.1 Data Cleaning:** I used Excel to perform data cleaning and preprocessing for each CSV file prior to importing into MySQL. 
+**4.1 Data Cleaning:** I used Excel to perform data cleaning and preprocessing for each CSV file prior to importing into MySQL. 
 
 The following steps were taken to ensure data quality and compatibility with MySQL formatting:  
 1. **Date Range Filtering**: Removed records outside the selected timeframe: January 1, 2017 to August 31, 2018.
@@ -124,16 +152,16 @@ The following steps were taken to ensure data quality and compatibility with MyS
 
 5. **Product Category Name Translation**: Used the VLOOKUP() function in Excel to match the original Portuguese product category names with their English equivalents, using the product_category_name_translation table as a reference. 
 
-**1.2 Database Setup:** Created the Olist database and imported all relevant datasets into MySQL Server.
+**4.2 Database Setup:** Created the Olist database and imported all relevant datasets into MySQL Server.
 
 <img src="https://github.com/user-attachments/assets/e9c31398-c3ba-4869-a7e2-ee7d8b4b56c6" width="400" />
+ 
 
-
-### 2.Exploratory Data Analysis and Business Insights
+### 5.Exploratory Data Analysis(EDA)
 
 **Q: What are the overall trends in order volume and transaction value over time?**
 
-**2.1 Key Metrics:**  
+**5.1 Key Metrics:**  
 Total Sales – Aggregate value of all completed transactions.  
 Total Orders – Number of orders placed across the platform.  
 Total Customers – Count of unique customers.  
@@ -219,8 +247,8 @@ ORDER BY year_range;
 
 Let's look at the KPIs from January to August 2017 and 2018,  Business has been doing great! Sales have gone up by over 139%, and we’ve seen a significant increase in the number of orders and customers. The Average Order Value (AOV) has also grown, but not by much. suggesting that the revenue surge is mainly due to a larger number of customers and orders, rather than higher spending per order.
 
-
-**2.2 Sales Trend by Date**
+   
+**5.2 Sales Trends Over Time**
 
 <details>
 <summary> Show SQL Query </summary>
@@ -239,7 +267,8 @@ ORDER BY 1;
 
 <img src="https://github.com/user-attachments/assets/a9373aef-0c4e-4c15-b229-d106246efe5b" width="580" />
 
-**2.3 Order Volume Trend**
+
+**5.3 Order Volume Trends**
 
 <details>
 <summary> Show SQL Query </summary>
@@ -265,8 +294,9 @@ ORDER BY 1;
 
 Let’s explore the 2017–2018 sales data. sales started at R$127,550 in January 2017 and followed a consistent upward trend, peaking at R$1,153,530 in November 2017, likely driven by a surge in orders during Black Friday (around November 24). Sales then declined to R$966,51k in February 2018 and stabilized within the range of R$1120.68k to R$1128.84k until May 2018. By August 2018, sales dropped to R$985,410.  Overall, 2017 exhibited strong, consistent growth, while 2018 showed significant growth but lacked a sustained upward trend, plateauing instead.
 
-
-**2.5 How are sales orders distributed across different geographical regions?**
+ 
+**5.4 Geographical Sales Distribution** 
+**Q: How are sales orders distributed across different geographical regions?**
 
 <details>
 <summary> Show State level Sale,orders and customer Trend by Date Query</summary>
@@ -292,7 +322,8 @@ ORDER BY total_revenue DESC;
 Undoubtedly,over 60% of revenue comes from SP, RJ, and MG.As the most populous and economically significant region in Brazil, the Southeast plays a crucial role. Prioritize SP, RJ, and MG in marketing and inventory planning, focusing on major cities like Sao Paulo, Rio, and Belo Horizonte. Leverage these markets to push high-margin products and drive profitability.
 
 
-**2.6 Which products generate the highest number of orders, and which do not?**
+**5.5 Product Category Performance**
+**Q:Which products generate the highest number of orders, and which do not?**
 
 <details>
 <summary> Show Top 5 Product Categories Query</summary>
@@ -355,9 +386,7 @@ High-demand categories such as Bed & Bath, Health & Beauty, and Sports & Leisure
 
 Low-demand categories such as security and services,fashion childrens clothes indicate niche markets or declining relevance. Consider reducing stock or reevaluating their place in the catalog.
 
-**2.7 Customer Review Scores**
-
-</details>
+**5.6 Customer Review Analysis**
 
 <details>
 <summary> Show SQL Query: the number of reviews grouped by each rating score </summary>
@@ -400,13 +429,12 @@ This highlights the critical need for proactive operational planning during high
 
 When filtering for orders with a 'canceled' status, the overall average review score drops below 3. This indicates a strong correlation between order cancellations and negative customer experiences.
 
+  
+### 6. Customer Segmentation & Behavior Analysis
 
+**Q:How do customers interact to out platform? How many are one-time buyers vs. repeat customers?**
 
-### 3. Customer Segmentation & Behavior Analysis
-
-**How do customers interact to out platform? How many are one-time buyers vs. repeat customers?**
-
-**3.1 implementing RFM segmentation using quantile-based scoring (NTILE)**
+**6.1 RFM Customer Group Distribution**
 
 <details>
 <summary> Show SQL Query: Customer Segmentation </summary>
@@ -429,10 +457,10 @@ ORDER BY 2 DESC;
 
 The figure shown 97% customer are one time buyer,which generate the R$14,515.12k revenue , the bulk of total revenue (R$15,375.88k). This heavy reliance on one time buyers indicates a lack of customer retention. it can be risky for long term growth as acquiring new customers is often more expensive than retaining existing ones. 
 
-**How loyal are our customers?**
-  - How recently did they make their last purchase?
-Let’s break down customer groups based on activity and value contribution
-
+  
+**Q:How loyal are our customers? How recently did they make their last purchase?**
+**6.2 Customer Activity and Value Breakdown**
+ 
 <details>
 <summary> Show SQL Query: Customer Activity Status </summary>
 
@@ -456,7 +484,7 @@ FROM rfm_base_data;
 
 The Champions group, with 77% active customers and an average spend of R$376.2, represents a small yet valuable high-spending segment with strong engagement. Meanwhile, Loyal Customers face an 81% idle rate, indicating a need for re-engagement, while the At-Risk segment (995 customers) is particularly concerning, with 70% already churned, underscoring the urgency for retention efforts. One-Time Buyers, despite driving most revenue, lack loyalty, with 42% idle and 29% churned. To ensure sustainable growth, the business should prioritize converting one-time buyers into repeat customers and revitalizing the idle and at-risk segments.
 
-**3.2 Payment Method Preference**
+**6.3 Payment Method Preferences**
 
 <details>
 <summary> Show SQL Query: Payment Type </summary>
@@ -487,8 +515,7 @@ Insight: Credit card spending accounts for 78.45% of total user spending, making
 Recommendation:
 To enhance customer loyalty and retention, consider partnering with a credit card issuer to introduce a co-branded card offering exclusive benefits for purchases made on your platform. Additionally, for high-value items such as electronics and furniture, collaborating with Bank to offer a "0% interest installment" plan. This strategy can lower purchase barriers,encouraging more frequent and higher spending,while reducing the chances of them switching to your competitors.
 
-
-**3.3 Customer Weekly Activity by Hour**
+**6.4 Weekly Customer Activity by Hour**
 
 <details>
 <summary> Show SQL Query: Weekly Order Pattern </summary>
@@ -517,7 +544,7 @@ These patterns offer clear opportunities for optimization:
 Schedule marketing campaigns and key promotions for early in the week and during afternoon peak hours.
 Adjust operational resources (e.g., customer support, order fulfillment) to align with periods of high activity.
 
-**3.3 Optional: 80/20 Rule**
+**6.5 Optional: Pareto Analysis(80/20 Principle)** 
 
 <details>
 <summary> Show SQL Query </summary>
@@ -552,8 +579,8 @@ LIMIT 1;
 
 The Pareto principle (80/20 rule) typically suggests that 80% of revenue comes from 20% of customers. Here, 80% of revenue comes from 48.85% of customers, indicating a less concentrated distribution.
 
-
-
+7. Key Findings & Recommendations -> 
+8. Tableau Dashboard Link
 
 
 

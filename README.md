@@ -517,3 +517,50 @@ These patterns offer clear opportunities for optimization:
 Schedule marketing campaigns and key promotions for early in the week and during afternoon peak hours.
 Adjust operational resources (e.g., customer support, order fulfillment) to align with periods of high activity.
 
+**3.3 Optional: 80/20 Rule**
+
+<details>
+<summary> Show SQL Query </summary>
+
+```sql
+CREATE TEMPORARY TABLE temp_pareto_analysis AS
+SELECT
+    customer_unique_id,
+    total_revenue,
+    SUM(total_revenue) OVER (ORDER BY total_revenue DESC) AS cumulative_revenue,
+    SUM(total_revenue) OVER () AS total_overall_revenue,
+    ROW_NUMBER() OVER (ORDER BY total_revenue DESC) AS cumulative_customers,
+    COUNT(*) OVER () AS total_customers,
+    ROUND(SUM(total_revenue) OVER (ORDER BY total_revenue DESC) / SUM(total_revenue) OVER () * 100, 4) AS cumulative_revenue_pct,
+    ROUND(ROW_NUMBER() OVER (ORDER BY total_revenue DESC) / COUNT(*) OVER () * 100, 4) AS cumulative_customer_pct
+FROM temp_customer_revenue;
+
+SELECT
+    cumulative_customers AS customers_for_80pct,
+    cumulative_customer_pct AS customer_pct_for_80pct,
+    cumulative_revenue_pct AS revenue_pct,
+    total_customers,
+    total_overall_revenue
+FROM temp_pareto_analysis
+WHERE cumulative_revenue_pct >= 80
+ORDER BY cumulative_revenue_pct ASC
+LIMIT 1;
+```
+</details>
+
+<img src="https://github.com/user-attachments/assets/2d335656-af33-4919-8961-e0fcaec34a5e" width="580" />
+
+The Pareto principle (80/20 rule) typically suggests that 80% of revenue comes from 20% of customers. Here, 80% of revenue comes from 48.85% of customers, indicating a less concentrated distribution.
+
+
+
+
+
+
+
+
+
+
+
+
+

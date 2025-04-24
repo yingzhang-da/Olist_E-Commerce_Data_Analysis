@@ -85,7 +85,7 @@ In this project, I used MySQL Server to manage and structure all the datasets, e
 This project aims to evaluate the performance of the Olist e-commerce platform through a comprehensive analysis of sales and customer-related metrics. The objective is to uncover underlying issues, identify growth opportunities, and provide actionable insights for platform optimization. 
 
 
-### Define the problems:
+## Define the problems:
 1. Platform Sales
 
 - What are the overall trends in order volume and transaction value over time?
@@ -109,10 +109,9 @@ This project aims to evaluate the performance of the Olist e-commerce platform t
 - Are there any issues in customer experience?
 
 
-### Data Cleaning
+## 1.Data Preprocessing
 
-I used Excel to perform data cleaning and preprocessing for each CSV file prior to importing into MySQL. 
-
+**1.1 Data Cleaning:** I used Excel to perform data cleaning and preprocessing for each CSV file prior to importing into MySQL. 
 
 The following steps were taken to ensure data quality and compatibility with MySQL formatting:  
 1. **Date Range Filtering**: Removed records outside the selected timeframe: January 1, 2017 to August 31, 2018.
@@ -125,19 +124,22 @@ The following steps were taken to ensure data quality and compatibility with MyS
 
 5. **Product Category Name Translation**: Used the VLOOKUP() function in Excel to match the original Portuguese product category names with their English equivalents, using the product_category_name_translation table as a reference. 
 
+**1.2 Database Setup:** Created the Olist database and imported all relevant datasets into MySQL Server.
+
+<img src="https://github.com/user-attachments/assets/e9c31398-c3ba-4869-a7e2-ee7d8b4b56c6" width="400" />
+2.1 Key Metrics:
 
 
-### Create Olist Database and Tables in MySQL Server
 
+## 2.Exploratory Data Analysis and Business Insights
 
+**Q: What are the overall trends in order volume and transaction value over time?**
 
-
-### Exploratory Data Analysis and Business Insights
-
-**What are the overall trends in order volume and transaction value over time?**
-
-
-1.Key Metrics: Total Sales, Total Orders, Total Customers, Average Order Value(AOV)  
+**2.1 Key Metrics:**
+Total Sales – Aggregate value of all completed transactions.
+Total Orders – Number of orders placed across the platform.
+Total Customers – Count of unique customers.
+Average Order Value (AOV) – Calculated as Total Sales divided by Total Orders; 
 
 <details>
 <summary> Show SQL Query: Year over Year Comparison (Jan-Aug 2017 vs. Jan-Aug 2018)</summary>
@@ -168,10 +170,8 @@ SELECT
 FROM orders_dataset o
 JOIN orders_items oi ON o.order_id = oi.order_id
 WHERE o.order_status = 'delivered'
-  AND (
-      (YEAR(o.order_purchase_timestamp) = 2017 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
-      OR (YEAR(o.order_purchase_timestamp) = 2018 AND MONTH(o.order_purchase_timestamp) BETWEEN 1 AND 8)
-  )
+    AND YEAR(order_purchase_timestamp) IN (2017, 2018)
+    AND MONTH(order_purchase_timestamp) BETWEEN 1 AND 8
 GROUP BY year_range;
 
 -- Total Customers
@@ -219,9 +219,10 @@ ORDER BY year_range;
   <img src="https://github.com/user-attachments/assets/f4a478c1-3e78-4ccf-9fb5-2cf8fcfd3bbf" width="200" />
 </p>
 
+**2.2 Sales Trend by Date**
 
 <details>
-<summary> Show SQL Query: Sales Trend by Date</summary>
+<summary> Show SQL Query </summary>
 
 ```sql
 SELECT
@@ -237,9 +238,10 @@ ORDER BY 1;
 
 <img src="https://github.com/user-attachments/assets/a9373aef-0c4e-4c15-b229-d106246efe5b" width="580" />
 
+**2.3 Order Volume Trend**
 
 <details>
-<summary> Show SQL Query: Orders Trend By Date </summary>
+<summary> Show SQL Query </summary>
 
 ```sql
 SELECT 
@@ -259,14 +261,15 @@ ORDER BY 1;
 <img src="https://github.com/user-attachments/assets/a4a4262e-06d7-44a0-b135-d144125a8d61" width="200" />
 <img src="https://github.com/user-attachments/assets/89033553-32aa-4a30-83ae-b390d4f5c137" width="560" />
 
-**insights:**
-Let’s dive into the year’s sales data. sales started at R$127,550 in January 2017 and exhibited a consistent upward trajectory. The peak sales occurred in November 2017, reaching R$1153,53k. Notably, the surge in orders around November 24 was likely attributed to the Black Friday event. Following the peak, sales declined to R$966,51k in February 2018 and stabilized within the range of R$1120.68k to R$1128.84k until May 2018. Subsequently, sales experienced a decline to R$985.41k by August,2018.
+**insights:** 
+
+####333Let’s dive into the year’s sales data. sales started at R$127,550 in January 2017 and exhibited a consistent upward trajectory. The peak sales occurred in November 2017, reaching R$1153,53k. Notably, the surge in orders around November 24 was likely attributed to the Black Friday event. Following the peak, sales declined to R$966,51k in February 2018 and stabilized within the range of R$1120.68k to R$1128.84k until May 2018. Subsequently, sales experienced a decline to R$985.41k by August,2018.
 
 A comparative analysis of the January–August period in 2018 demonstrates a 143% increase in sales compared to the corresponding period in 2017. However, despite this substantial growth, 2018 lacked a sustained upward trend, with sales reaching a plateau, unlike the consistent growth trajectory observed in 2017.
 
 Correspondingly, orders and customers both experienced significantly growth in 2018
 
-**How are sales orders distributed across different geographical regions?**
+**2.5 How are sales orders distributed across different geographical regions?**
 
 <details>
 <summary> Show State level Sale,orders and customer Trend by Date Query</summary>

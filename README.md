@@ -3,48 +3,85 @@
 
 
 ## Context
-This dataset was generously provided by Olist, the largest department store in Brazilian marketplaces. Olist connects small businesses from all over Brazil to channels without hassle and with a single contract. Those merchants are able to sell their products through the Olist Store and ship them directly to the customers using Olist logistics partners
+This dataset was generously provided by Olist, the largest department store in Brazilian marketplaces. Olist connects small businesses from all over Brazil to channels without hassle and with a single contract. Those merchants are able to sell their products through the Olist Store and ship them directly to customers using Olist logistics partners.
 
 
 ## About Dataset
-The dataset used for this project is sourced from [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce), It has information of 100k orders from 2016 to 2018 made at multiple marketplaces in Brazil. Its features allows viewing an order from multiple dimensions: from order status, price, payment and freight performance to customer location, product attributes and finally reviews written by customers.
+The dataset used for this project is sourced from [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). It has information on 100k orders from 2016 to 2018 made at multiple marketplaces in Brazil. Its features allow viewing an order from multiple dimensions: from order status, price, payment, and freight performance to customer location, product attributes, and finally, reviews written by customers.
 
-For this project, six key tables from the dataset are utilized：
+For this project, six key tables from the dataset are utilized:
 
 1. "olist_customers_dataset.csv"
 
-Columns:  `customer_id`  `customer_unique_id`  `customer_zip_code_prefix`  `customer_city`  `customer_state`
+Columns:  
+`customer_id`  
+`customer_unique_id`  
+`customer_zip_code_prefix`  
+`customer_city`  
+`customer_state`
 
 2. "olist_order_items_dataset.csv"
 
-Columns:  `order_id`  `order_item_id`  `product_id`  `seller_id`  `shipping_limit_date`  `price`  `freight_value`
+Columns:  
+`order_id`  
+`order_item_id`  
+`product_id`  
+`seller_id`  
+`shipping_limit_date`  
+`price`  
+`freight_value`
 
 3. "olist_order_payments_dataset.csv"
 
-Columns:  `order_id`  `payment_sequential`  `payment_type`  `payment_installments`  `payment_value`
+Columns:  
+`order_id`  
+`payment_sequential`  
+`payment_type`  
+`payment_installments`  
+`payment_value`
 
 4. "olist_order_reviews_dataset.csv"
 
-Columns:  `review_id`  `order_id`  `review_score`  `review_comment_title`  `review_comment_message`  `review_creation_date`  `review_answer_timestamp`
+Columns:  
+`review_id`  
+`order_id`  
+`review_score`  
+`review_comment_title`  
+`review_comment_message`  
+`review_creation_date`  
+`review_answer_timestamp`
 
 5. "olist_orders_dataset.csv"
 
-Columns:  `order_id`  `customer_id`  `order_status`  `order_purchase_timestamp`  `order_approved_at`  `order_delivered_carrier_date`  `order_delivered_customer_date`  `order_estimated_delivery_date`
+Columns:  
+`order_id`  
+`customer_id`  
+`order_status`  
+`order_purchase_timestamp`  
+`order_approved_at`  
+`order_delivered_carrier_date`  
+`order_delivered_customer_date`  
+`order_estimated_delivery_date`
 
 6. "olist_products_dataset.csv"
 
-Columns:  `product_id`  `product_category_name`
+Columns:  
+`product_id`  
+`product_category_name`
 
 
 ## Data limitation and problem
-The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**, However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. To ensure data reliability and analytical consistency, the date range of this analysis has been limited to the period between January 1, 2017 and August 31, 2018.
+
+The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**. However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. To ensure data reliability and analytical consistency, the date range of this analysis has been limited to the period between January 1, 2017 and August 31, 2018.
 
 
 ## Data Analysis tool
-In this project, MySQL Server is used as the database to store and manage the dataset. SQL is applied for querying, data exploration, and analysis. The processed data is then imported into Tableau to create interactive visualizations and dashboards for deeper insights.
+
+In this project, I used MySQL Server to manage and structure all the datasets, ensuring their organization and accessibility. I connected it to Tableau to develop an interactive Olist e-commerce dashboard. For more complex data analysis,such as customer segmentation, I wrote SQL queries directly in MySQL to process the data, then brought those results into Tableau to create visualizations that uncover meaningful insights for decision-making.  To maintain data consistency between MySQL and Tableau, I also included the SQL queries employed for dataset extraction and preparation, ensuring seamless alignment across both tools.
 
 
 ## Objective
+
 This project aims to evaluate the performance of the Olist e-commerce platform through a comprehensive analysis of sales and customer-related metrics. The objective is to uncover underlying issues, identify growth opportunities, and provide actionable insights for platform optimization. 
 
 
@@ -55,27 +92,21 @@ This project aims to evaluate the performance of the Olist e-commerce platform t
 
 - How are sales orders distributed across different geographical regions?
 
-- How do order trends vary by order status and reviews (e.g., delivered, canceled, in transit)?
+- What patterns can be observed in order volume and behavior when segmented by order status and associated review ratings?
 
 - Which products generate the highest number of orders, and which don't?
 
 
 2. Customer
-- Who are our customers?
-  - Are they concentrated in specific regions or cities?
+- Who are our customers? Are they concentrated in specific regions?
 
-- How do customers interact to out platform?
-  - How many are one-time buyers vs. repeat customers?
+- How do customers interact to our platform? How many are one-time buyers vs. repeat customers?
   
-- How loyal are our customers?
-  - How recently did they make their last purchase?
+- How loyal are our customers? How recently did they make their last purchase?
 
 - Are there any segments of customers worth targeting?
 
 - Are there any issues in customer experience?
-  - Are there common complaints or cancellations from specific customers or regions?
-
-
 
 
 ### Data Cleaning
@@ -189,10 +220,6 @@ ORDER BY year_range;
 </p>
 
 
-
-
-
-
 <details>
 <summary> Show SQL Query: Sales Trend by Date</summary>
 
@@ -208,8 +235,7 @@ ORDER BY 1;
 ```
 </details>
 
-<img src="https://github.com/user-attachments/assets/da29476c-d2a7-4289-99db-438812f573ae" width="580" />
-
+<img src="https://github.com/user-attachments/assets/a9373aef-0c4e-4c15-b229-d106246efe5b" width="580" />
 
 
 <details>
@@ -260,8 +286,8 @@ ORDER BY total_revenue DESC;
 ```
 </details>
 
-<img src="https://github.com/user-attachments/assets/873ac07c-5db4-4f1e-9448-e73d534a59d8" width="680" />
-<img src="https://github.com/user-attachments/assets/306a8306-02a8-4bbc-af01-af8752bcf27d" width="680" />
+<img src="https://github.com/user-attachments/assets/b1847314-c94e-4eac-a54f-840433c66776" width="580" />
+<img src="https://github.com/user-attachments/assets/a47bec1d-5650-42c5-a5bb-aa345f84db5a" width="580" />
 
 No doubt,over 60% of revenue comes from SP, RJ, and MG. The Southeast region of Brazil has the largest population. 
 
@@ -273,7 +299,8 @@ Target High-Income Cities: Brasília and Niterói are ideal for premium products
 Improve Northeast Penetration: Invest in logistics for Salvador to boost BA’s sales, focusing on consumer goods and tourism-related products.
 Monitor Smaller Markets: Goiás and Espírito Santo are growing; consider targeted campaigns in Goiânia and Vitória.)
 
-**Which products generate the highest number of orders, and which do not?
+**Which products generate the highest number of orders, and which do not?**
+
 <details>
 <summary> Show Top 5 Product Categories Query</summary>
 
@@ -329,12 +356,7 @@ LIMIT 5;
 ```
 </details>
 
-
-<p float="left">
-  <img src="https://github.com/user-attachments/assets/7eb3b6b9-b3c6-4c45-a9d1-62d27101d6f3" width="600" />
-  <img src="https://github.com/user-attachments/assets/f960b1b8-221f-4e3f-958f-d8502710e603" width="600" />
-</p>
-
+<img src="https://github.com/user-attachments/assets/bb465851-98f3-4573-ac94-e49c8733f922" width="580" />
 
 High-demand categories such as Bed & Bath, Health & Beauty, and Sports & Leisure suggest that customers prioritize essentials items, personal care products, and lifestyle. These are likely stable, high-turnover categories to focus on for inventory and marketing.
 
@@ -365,11 +387,9 @@ LIMIT 5;
 ```
 </details>
 
-
 <img src="https://github.com/user-attachments/assets/4d986af8-93d1-4057-b5f3-8e54588eddb1" width="200" />
 
-<img src="https://github.com/user-attachments/assets/1589d7b2-ca59-4a90-abca-0c7ced2dbe88" width="580" />
-
+<img src="https://github.com/user-attachments/assets/6d850711-074c-4309-b9aa-02555918b169" width="380" />
 
 Customer reviews significantly influence purchasing decisions, often determining whether a consumer chooses one business over another. Between January 2017 and August 2018, Olist's e-commerce platform received 11,293 one-star reviews and 3,136 two-star reviews — together accounting for approximately 15% of all reviews during that period. 
 
@@ -392,9 +412,9 @@ next step:
 The business should closely investigate the decline in review scores during periods of high order volume. This trend suggests potential operational strain, and addressing it may involve optimizing logistics, improving fulfillment processes, or scaling support capacity during peak demand. Enhancing service performance in these critical periods can directly improve customer satisfaction and loyalty."
 Additionally, the observed decline in both payment value and order volume in 2018 warrants further analysis. Understanding the underlying causes—whether market saturation, increased competition, pricing issues, or changes in consumer behavior—will be essential for developing informed strategies to regain momentum and sustain growth.
 
-#### Customer Behavior###
+#### Customer Behavior
 
-- How do customers interact to out platform?
+**How do customers interact to out platform?**
   - How many are one-time buyers vs. repeat customers?
   
 implementing RFM segmentation using quantile-based scoring (NTILE)
@@ -416,14 +436,17 @@ ORDER BY 2 DESC;
 ```
 </details>
 
-<img src="https://github.com/user-attachments/assets/97b33c99-b3c2-474a-8692-16956754231e" width="580" />
+<img src="https://github.com/user-attachments/assets/0ca7e378-64c1-49a7-aee8-ce191370ff90" width="580" />
 
 The figure shown 97% customer are one time buyer,which generate the R$14,515.12k revenue , the bulk of total revenue (R$15,375.88k). This heavy reliance on one time buyers indicates a lack of customer retention. it can be risky for long term growth as acquiring new customers is often more expensive than retaining existing ones. 
 
+**How loyal are our customers?**
+  - How recently did they make their last purchase?
 Let’s break down customer groups based on activity and value contribution
 
 <details>
 <summary> Show SQL Query: Customer Activity Status </summary>
+
 ```sql
 CREATE TEMPORARY TABLE rfm_with_status AS
 SELECT 
@@ -446,8 +469,10 @@ FROM rfm_base_data;
 The Champions group, with 77% active customers and an average spend of R$376.2, represents a small yet valuable high-spending segment with strong engagement. Meanwhile, Loyal Customers face an 81% idle rate, indicating a need for re-engagement, while the At-Risk segment (995 customers) is particularly concerning, with 70% already churned, underscoring the urgency for retention efforts. One-Time Buyers, despite driving most revenue, lack loyalty, with 42% idle and 29% churned. To ensure sustainable growth, the business should prioritize converting one-time buyers into repeat customers and revitalizing the idle and at-risk segments.
 
 **Payment Method Preference**
+
 <details>
-<summary> Show SQL Query: Customer Activity Status </summary>
+<summary> Show SQL Query: Payment Type </summary>
+
 ```sql
 SELECT
     p.payment_type AS payment_method,
@@ -466,13 +491,36 @@ GROUP BY p.payment_type
 ORDER BY payment_value DESC;
 ```
 </details>
-<img src="https://github.com/user-attachments/assets/31392408-01eb-4ab4-b84f-9efdb8248e7f" width="580" />
+
+<img src="https://github.com/user-attachments/assets/e0dcd639-f975-4baa-9dbc-6b06de167019" width="580" />
+
+Insight: Credit card spending accounts for 78.45% of total user spending, making it the most commonly used payment method among customers.
+
+Recommendation:
+To enhance customer loyalty and retention, consider partnering with a credit card issuer to introduce a co-branded card offering exclusive benefits for purchases made on your platform. Additionally, for high-value items such as electronics and furniture, collaborating with Bank to offer a "0% interest installment" plan. This strategy can lower purchase barriers,encouraging more frequent and higher spending,while reducing the chances of them switching to your competitors.
 
 
+**Customer Weekly Activity by Hour**
 
+<details>
+<summary> Show SQL Query: Weekly Order Pattern </summary>
 
+```sql
+SELECT 
+  DAYNAME(order_purchase_timestamp) AS day_of_week,
+  HOUR(order_purchase_timestamp) AS hour_of_day,
+  COUNT(order_id) AS total_orders
+FROM orders_dataset
+GROUP BY day_of_week, hour_of_day
+ORDER BY 
+  FIELD(day_of_week, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
+  hour_of_day;
+```
+</details>
 
-- How loyal are our customers?
-  - How recently did they make their last purchase?
+<img src="https://github.com/user-attachments/assets/1d3a667b-f96c-4e5f-8600-db509ab7bab0" width="580" />
+
+The chart shows the total orders by day of the week,with a strong start to the week and a noticeable decline over the weekend, offering opportunities for targeted marketing and operational adjustments. 
+
 
 

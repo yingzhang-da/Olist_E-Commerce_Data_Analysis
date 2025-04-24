@@ -2,11 +2,11 @@
 
 
 
-## Context
+### Context
 This dataset was generously provided by Olist, the largest department store in Brazilian marketplaces. Olist connects small businesses from all over Brazil to channels without hassle and with a single contract. Those merchants are able to sell their products through the Olist Store and ship them directly to customers using Olist logistics partners.
 
 
-## About Dataset
+### About Dataset
 The dataset used for this project is sourced from [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). It has information on 100k orders from 2016 to 2018 made at multiple marketplaces in Brazil. Its features allow viewing an order from multiple dimensions: from order status, price, payment, and freight performance to customer location, product attributes, and finally, reviews written by customers.
 
 For this project, six key tables from the dataset are utilized:
@@ -70,22 +70,22 @@ Columns:
 `product_category_name`
 
 
-## Data limitation and problem
+### Data limitation and problem
 
 The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**. However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. To ensure data reliability and analytical consistency, the date range of this analysis has been limited to the period between January 1, 2017 and August 31, 2018.
 
 
-## Data Analysis tool
+### Data Analysis tool
 
 In this project, I used MySQL Server to manage and structure all the datasets, ensuring their organization and accessibility. I connected it to Tableau to develop an interactive Olist e-commerce dashboard. For more complex data analysis,such as customer segmentation, I wrote SQL queries directly in MySQL to process the data, then brought those results into Tableau to create visualizations that uncover meaningful insights for decision-making.  To maintain data consistency between MySQL and Tableau, I also included the SQL queries employed for dataset extraction and preparation, ensuring seamless alignment across both tools.
 
 
-## Objective
+### Objective
 
 This project aims to evaluate the performance of the Olist e-commerce platform through a comprehensive analysis of sales and customer-related metrics. The objective is to uncover underlying issues, identify growth opportunities, and provide actionable insights for platform optimization. 
 
 
-## Define the problems:
+### Define the problems:
 1. Platform Sales
 
 - What are the overall trends in order volume and transaction value over time?
@@ -109,7 +109,7 @@ This project aims to evaluate the performance of the Olist e-commerce platform t
 - Are there any issues in customer experience?
 
 
-## 1.Data Preprocessing
+### 1.Data Preprocessing
 
 **1.1 Data Cleaning:** I used Excel to perform data cleaning and preprocessing for each CSV file prior to importing into MySQL. 
 
@@ -127,11 +127,9 @@ The following steps were taken to ensure data quality and compatibility with MyS
 **1.2 Database Setup:** Created the Olist database and imported all relevant datasets into MySQL Server.
 
 <img src="https://github.com/user-attachments/assets/e9c31398-c3ba-4869-a7e2-ee7d8b4b56c6" width="400" />
-2.1 Key Metrics:
 
 
-
-## 2.Exploratory Data Analysis and Business Insights
+### 2.Exploratory Data Analysis and Business Insights
 
 **Q: What are the overall trends in order volume and transaction value over time?**
 
@@ -218,6 +216,7 @@ ORDER BY year_range;
   <img src="https://github.com/user-attachments/assets/4630c021-f2c6-44aa-85b0-25c2ce54a5ae" width="200" />
   <img src="https://github.com/user-attachments/assets/f4a478c1-3e78-4ccf-9fb5-2cf8fcfd3bbf" width="200" />
 </p>
+
 
 **2.2 Sales Trend by Date**
 

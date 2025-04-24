@@ -133,10 +133,10 @@ The following steps were taken to ensure data quality and compatibility with MyS
 
 **Q: What are the overall trends in order volume and transaction value over time?**
 
-**2.1 Key Metrics:**
-Total Sales – Aggregate value of all completed transactions.
-Total Orders – Number of orders placed across the platform.
-Total Customers – Count of unique customers.
+**2.1 Key Metrics:**  
+Total Sales – Aggregate value of all completed transactions.  
+Total Orders – Number of orders placed across the platform.  
+Total Customers – Count of unique customers.  
 Average Order Value (AOV) – Calculated as Total Sales divided by Total Orders; 
 
 <details>
@@ -217,6 +217,8 @@ ORDER BY year_range;
   <img src="https://github.com/user-attachments/assets/f4a478c1-3e78-4ccf-9fb5-2cf8fcfd3bbf" width="200" />
 </p>
 
+Let's look at the KPIs from January to August 2017 and 2018,  Business has been doing great! Sales have gone up by over 139%, and we’ve seen a significant increase in the number of orders and customers. The Average Order Value (AOV) has also grown, but not by much. suggesting that the revenue surge is mainly due to a larger number of customers and orders, rather than higher spending per order.
+
 
 **2.2 Sales Trend by Date**
 
@@ -260,13 +262,9 @@ ORDER BY 1;
 <img src="https://github.com/user-attachments/assets/a4a4262e-06d7-44a0-b135-d144125a8d61" width="200" />
 <img src="https://github.com/user-attachments/assets/89033553-32aa-4a30-83ae-b390d4f5c137" width="560" />
 
-**insights:** 
 
-####333Let’s dive into the year’s sales data. sales started at R$127,550 in January 2017 and exhibited a consistent upward trajectory. The peak sales occurred in November 2017, reaching R$1153,53k. Notably, the surge in orders around November 24 was likely attributed to the Black Friday event. Following the peak, sales declined to R$966,51k in February 2018 and stabilized within the range of R$1120.68k to R$1128.84k until May 2018. Subsequently, sales experienced a decline to R$985.41k by August,2018.
+Let’s explore the 2017–2018 sales data. sales started at R$127,550 in January 2017 and followed a consistent upward trend, peaking at R$1,153,530 in November 2017, likely driven by a surge in orders during Black Friday (around November 24). Sales then declined to R$966,51k in February 2018 and stabilized within the range of R$1120.68k to R$1128.84k until May 2018. By August 2018, sales dropped to R$985,410.  Overall, 2017 exhibited strong, consistent growth, while 2018 showed significant growth but lacked a sustained upward trend, plateauing instead.
 
-A comparative analysis of the January–August period in 2018 demonstrates a 143% increase in sales compared to the corresponding period in 2017. However, despite this substantial growth, 2018 lacked a sustained upward trend, with sales reaching a plateau, unlike the consistent growth trajectory observed in 2017.
-
-Correspondingly, orders and customers both experienced significantly growth in 2018
 
 **2.5 How are sales orders distributed across different geographical regions?**
 
@@ -291,17 +289,10 @@ ORDER BY total_revenue DESC;
 <img src="https://github.com/user-attachments/assets/b1847314-c94e-4eac-a54f-840433c66776" width="580" />
 <img src="https://github.com/user-attachments/assets/a47bec1d-5650-42c5-a5bb-aa345f84db5a" width="580" />
 
-No doubt,over 60% of revenue comes from SP, RJ, and MG. The Southeast region of Brazil has the largest population. 
+Undoubtedly,over 60% of revenue comes from SP, RJ, and MG.As the most populous and economically significant region in Brazil, the Southeast plays a crucial role. Prioritize SP, RJ, and MG in marketing and inventory planning, focusing on major cities like Sao Paulo, Rio, and Belo Horizonte. Leverage these markets to push high-margin products and drive profitability.
 
-(Based on the sales rankings:
 
-Focus on SP, RJ, MG: Allocate marketing and inventory to these states, emphasizing São Paulo, Rio, and Belo Horizonte. Promote high-margin categories like electronics and fashion.
-Strengthen Logistics in PR, RS, SC: Leverage their efficient infrastructure for faster deliveries, especially in Curitiba and Porto Alegre.
-Target High-Income Cities: Brasília and Niterói are ideal for premium products due to affluent consumers.
-Improve Northeast Penetration: Invest in logistics for Salvador to boost BA’s sales, focusing on consumer goods and tourism-related products.
-Monitor Smaller Markets: Goiás and Espírito Santo are growing; consider targeted campaigns in Goiânia and Vitória.)
-
-**Which products generate the highest number of orders, and which do not?**
+**2.6 Which products generate the highest number of orders, and which do not?**
 
 <details>
 <summary> Show Top 5 Product Categories Query</summary>
@@ -364,7 +355,7 @@ High-demand categories such as Bed & Bath, Health & Beauty, and Sports & Leisure
 
 Low-demand categories such as security and services,fashion childrens clothes indicate niche markets or declining relevance. Consider reducing stock or reevaluating their place in the catalog.
 
-**Customer Review Scores**
+**2.7 Customer Review Scores**
 
 </details>
 
@@ -410,16 +401,12 @@ This highlights the critical need for proactive operational planning during high
 When filtering for orders with a 'canceled' status, the overall average review score drops below 3. This indicates a strong correlation between order cancellations and negative customer experiences.
 
 
-next step:
-The business should closely investigate the decline in review scores during periods of high order volume. This trend suggests potential operational strain, and addressing it may involve optimizing logistics, improving fulfillment processes, or scaling support capacity during peak demand. Enhancing service performance in these critical periods can directly improve customer satisfaction and loyalty."
-Additionally, the observed decline in both payment value and order volume in 2018 warrants further analysis. Understanding the underlying causes—whether market saturation, increased competition, pricing issues, or changes in consumer behavior—will be essential for developing informed strategies to regain momentum and sustain growth.
 
-#### Customer Behavior
+### 3. Customer Segmentation & Behavior Analysis
 
-**How do customers interact to out platform?**
-  - How many are one-time buyers vs. repeat customers?
-  
-implementing RFM segmentation using quantile-based scoring (NTILE)
+**How do customers interact to out platform? How many are one-time buyers vs. repeat customers?**
+
+**3.1 implementing RFM segmentation using quantile-based scoring (NTILE)**
 
 <details>
 <summary> Show SQL Query: Customer Segmentation </summary>
@@ -467,10 +454,9 @@ FROM rfm_base_data;
 
 <img src="https://github.com/user-attachments/assets/89c1cd67-d935-4796-828f-4ee7bfbfed33" width="580" />
 
-
 The Champions group, with 77% active customers and an average spend of R$376.2, represents a small yet valuable high-spending segment with strong engagement. Meanwhile, Loyal Customers face an 81% idle rate, indicating a need for re-engagement, while the At-Risk segment (995 customers) is particularly concerning, with 70% already churned, underscoring the urgency for retention efforts. One-Time Buyers, despite driving most revenue, lack loyalty, with 42% idle and 29% churned. To ensure sustainable growth, the business should prioritize converting one-time buyers into repeat customers and revitalizing the idle and at-risk segments.
 
-**Payment Method Preference**
+**3.2 Payment Method Preference**
 
 <details>
 <summary> Show SQL Query: Payment Type </summary>
@@ -502,7 +488,7 @@ Recommendation:
 To enhance customer loyalty and retention, consider partnering with a credit card issuer to introduce a co-branded card offering exclusive benefits for purchases made on your platform. Additionally, for high-value items such as electronics and furniture, collaborating with Bank to offer a "0% interest installment" plan. This strategy can lower purchase barriers,encouraging more frequent and higher spending,while reducing the chances of them switching to your competitors.
 
 
-**Customer Weekly Activity by Hour**
+**3.3 Customer Weekly Activity by Hour**
 
 <details>
 <summary> Show SQL Query: Weekly Order Pattern </summary>
@@ -522,7 +508,12 @@ ORDER BY
 
 <img src="https://github.com/user-attachments/assets/1d3a667b-f96c-4e5f-8600-db509ab7bab0" width="580" />
 
-The chart shows the total orders by day of the week,with a strong start to the week and a noticeable decline over the weekend, offering opportunities for targeted marketing and operational adjustments. 
 
+Weekly Trends: Order volume analysis by day of the week indicates a strong start to the week, with peak activity occurring on Mondays and Tuesdays. A gradual decline in orders is observed as the week progresses, reaching lower levels by the weekend. This suggests higher customer engagement during the early weekdays.
 
+Daily Trends: Hourly data reveals a daily cycle, where order activity increase in the morning, a peaks between 2 PM and 4 PM, and a sharp drop in the evening, reaching a low point overnight. This pattern reflects typical consumer online behavior aligned with work and leisure hours.
+
+These patterns offer clear opportunities for optimization:
+Schedule marketing campaigns and key promotions for early in the week and during afternoon peak hours.
+Adjust operational resources (e.g., customer support, order fulfillment) to align with periods of high activity.
 

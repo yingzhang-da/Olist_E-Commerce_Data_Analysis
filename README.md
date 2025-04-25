@@ -31,11 +31,10 @@
 ### 1. Introduction
 
 **1.1 Context**
-This dataset was generously provided by Olist, the largest department store in Brazilian marketplaces. Olist connects small businesses from all over Brazil to channels without hassle and with a single contract. Those merchants are able to sell their products through the Olist Store and ship them directly to customers using Olist logistics partners.
-
+This dataset was generously provided by Olist, the largest department store in Brazilian marketplaces. Olist connects small businesses from all over Brazil to channels without hassle and with a single contract. Those merchants are able to sell their products through the Olist Store and ship them directly to customers using Olist logistics partners.<br/>
 
 **1.2 Objective**
-This project aims to evaluate the performance of the Olist e-commerce platform through a comprehensive analysis of sales and customer-related metrics. The objective is to uncover underlying issues, identify growth opportunities, and provide actionable insights for platform optimization. 
+To assess the performance of the Olist e-commerce platform by conducting a thorough analysis of sales and customer metrics using an interactive Tableau dashboard. The goal is to identify operational challenges, uncover growth opportunities, and deliver actionable insights to optimize platform performance.<br/>
 
 **1.3 Business Questions to Ask:**
 To effectively address Olist's e-commerce challenges, the following business questions will guide the analysis:
@@ -60,7 +59,7 @@ To effectively address Olist's e-commerce challenges, the following business que
 
 - Are there specific customer segments worth targeting for marketing or retention efforts?
 
-- Are there any identifiable issues in customer experience that need to be addressed?
+- Are there any identifiable issues in customer experience that need to be addressed?<br/>
 
 
 ### 2. About Dataset
@@ -129,16 +128,13 @@ Columns:
 `product_category_name`
 
 **2.2 Data Limitations**
-The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**. However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. To ensure data reliability and analytical consistency, the date range of this analysis has been limited to the period between January 1, 2017 and August 31, 2018.
+The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**. However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. To ensure data reliability and analytical consistency, the date range of this analysis has been limited to the period between January 1, 2017 and August 31, 2018.<br/>
 
 
 ### 3. Data Analysis tool
-
-In this project, I used MySQL Server to manage and structure all the datasets, ensuring their organization and accessibility. I connected it to Tableau to develop an interactive Olist e-commerce dashboard. For more complex data analysis,such as customer segmentation, I wrote SQL queries directly in MySQL to process the data, then brought those results into Tableau to create visualizations that uncover meaningful insights for decision-making.  To maintain data consistency between MySQL and Tableau, I also included the SQL queries employed for dataset extraction and preparation, ensuring seamless alignment across both tools.
-
+For this project, I used MySQL Server to manage and structure all the datasets, ensuring their organization and accessibility. MySQL was integrated with Tableau to develop an interactive Olist e-commerce dashboard. For advanced analyses,such as customer segmentation, I crafted SQL queries in MySQL to process the data, then imported the results into Tableau to create insightful visualizations for informed decision-making.  To maintain data consistency between MySQL and Tableau, I documented the SQL queries used for data extraction and preparation, ensuring seamless alignment across both tools.<br/>
 
 ### 4. Data Preprocessing
-
 **4.1 Data Cleaning:** I used Excel to perform data cleaning and preprocessing for each CSV file prior to importing into MySQL. 
 
 The following steps were taken to ensure data quality and compatibility with MySQL formatting:  
@@ -150,16 +146,14 @@ The following steps were taken to ensure data quality and compatibility with MyS
 
 4. **Removal of Irrelevant Data**: Deleted unnecessary columns and rows that were not relevant to the scope of the analysis.
 
-5. **Product Category Name Translation**: Used the VLOOKUP() function in Excel to match the original Portuguese product category names with their English equivalents, using the product_category_name_translation table as a reference. 
+5. **Product Category Name Translation**: Used the VLOOKUP() function in Excel to match the original Portuguese product category names with their English equivalents, using the product_category_name_translation table as a reference.<br/>
 
 **4.2 Database Setup:** Created the Olist database and imported all relevant datasets into MySQL Server.
 
-<img src="https://github.com/user-attachments/assets/e9c31398-c3ba-4869-a7e2-ee7d8b4b56c6" width="400" />
- 
+<img src="https://github.com/user-attachments/assets/e9c31398-c3ba-4869-a7e2-ee7d8b4b56c6" width="400" /><br/>
 
 ### 5.Exploratory Data Analysis(EDA)
-
-**Q: What are the overall trends in order volume and transaction value over time?**
+**Q: What are the overall trends in order volume and transaction value over time?**<br/>
 
 **5.1 Key Metrics:**  
 Total Sales – Aggregate value of all completed transactions.  
@@ -245,9 +239,8 @@ ORDER BY year_range;
   <img src="https://github.com/user-attachments/assets/f4a478c1-3e78-4ccf-9fb5-2cf8fcfd3bbf" width="200" />
 </p>
 
-Let's look at the KPIs from January to August 2017 and 2018,  Business has been doing great! Sales have gone up by over 139%, and we’ve seen a significant increase in the number of orders and customers. The Average Order Value (AOV) has also grown, but not by much. suggesting that the revenue surge is mainly due to a larger number of customers and orders, rather than higher spending per order.
+Let's look at the KPIs from January to August 2017 and 2018,  Business has been doing great! Sales have gone up by over 139%, and we’ve seen a significant increase in the number of orders and customers. The Average Order Value (AOV) has also grown, but not by much. suggesting that the revenue surge is mainly due to a larger number of customers and orders, rather than higher spending per order.<br/>
 
-   
 **5.2 Sales Trends Over Time**
 
 <details>
@@ -265,8 +258,7 @@ ORDER BY 1;
 ```
 </details>
 
-<img src="https://github.com/user-attachments/assets/a9373aef-0c4e-4c15-b229-d106246efe5b" width="580" />
-
+<img src="https://github.com/user-attachments/assets/a9373aef-0c4e-4c15-b229-d106246efe5b" width="580" /><br/>
 
 **5.3 Order Volume Trends**
 
@@ -289,13 +281,12 @@ ORDER BY 1;
 </details>
 
 <img src="https://github.com/user-attachments/assets/a4a4262e-06d7-44a0-b135-d144125a8d61" width="200" />
-<img src="https://github.com/user-attachments/assets/89033553-32aa-4a30-83ae-b390d4f5c137" width="560" />
-
+<img src="https://github.com/user-attachments/assets/89033553-32aa-4a30-83ae-b390d4f5c137" width="560" /><br/>
 
 Let’s explore the 2017–2018 sales data. sales started at R$127,550 in January 2017 and followed a consistent upward trend, peaking at R$1,153,530 in November 2017, likely driven by a surge in orders during Black Friday (around November 24). Sales then declined to R$966,51k in February 2018 and stabilized within the range of R$1120.68k to R$1128.84k until May 2018. By August 2018, sales dropped to R$985,410.  Overall, 2017 exhibited strong, consistent growth, while 2018 showed significant growth but lacked a sustained upward trend, plateauing instead.
 
- 
 **5.4 Geographical Sales Distribution** 
+
 **Q: How are sales orders distributed across different geographical regions?**
 
 <details>
@@ -319,10 +310,10 @@ ORDER BY total_revenue DESC;
 <img src="https://github.com/user-attachments/assets/b1847314-c94e-4eac-a54f-840433c66776" width="580" />
 <img src="https://github.com/user-attachments/assets/a47bec1d-5650-42c5-a5bb-aa345f84db5a" width="580" />
 
-Undoubtedly,over 60% of revenue comes from SP, RJ, and MG.As the most populous and economically significant region in Brazil, the Southeast plays a crucial role. Prioritize SP, RJ, and MG in marketing and inventory planning, focusing on major cities like Sao Paulo, Rio, and Belo Horizonte. Leverage these markets to push high-margin products and drive profitability.
-
+Undoubtedly,over 60% of revenue comes from SP, RJ, and MG.As the most populous and economically significant region in Brazil, the Southeast plays a crucial role. Prioritize SP, RJ, and MG in marketing and inventory planning, focusing on major cities like Sao Paulo, Rio, and Belo Horizonte. Leverage these markets to push high-margin products and drive profitability.<br/>
 
 **5.5 Product Category Performance**
+
 **Q:Which products generate the highest number of orders, and which do not?**
 
 <details>
@@ -384,7 +375,7 @@ LIMIT 5;
 
 High-demand categories such as Bed & Bath, Health & Beauty, and Sports & Leisure suggest that customers prioritize essentials items, personal care products, and lifestyle. These are likely stable, high-turnover categories to focus on for inventory and marketing.
 
-Low-demand categories such as security and services,fashion childrens clothes indicate niche markets or declining relevance. Consider reducing stock or reevaluating their place in the catalog.
+Low-demand categories such as security and services,fashion childrens clothes indicate niche markets or declining relevance. Consider reducing stock or reevaluating their place in the catalog.<br/>
 
 **5.6 Customer Review Analysis**
 
@@ -427,12 +418,11 @@ The lowest average review scores occurred around November 24, 2017, and March 2,
 
 This highlights the critical need for proactive operational planning during high-demand seasons to preserve customer experience.
 
-When filtering for orders with a 'canceled' status, the overall average review score drops below 3. This indicates a strong correlation between order cancellations and negative customer experiences.
+When filtering for orders with a 'canceled' status, the overall average review score drops below 3. This indicates a strong correlation between order cancellations and negative customer experiences.<br/>
 
-  
 ### 6. Customer Segmentation & Behavior Analysis
 
-**Q:How do customers interact to out platform? How many are one-time buyers vs. repeat customers?**
+**Q:How do customers interact to out platform? How many are one-time buyers vs. repeat customers?**<br/>
 
 **6.1 RFM Customer Group Distribution**
 
@@ -455,10 +445,10 @@ ORDER BY 2 DESC;
 
 <img src="https://github.com/user-attachments/assets/0ca7e378-64c1-49a7-aee8-ce191370ff90" width="580" />
 
-The figure shown 97% customer are one time buyer,which generate the R$14,515.12k revenue , the bulk of total revenue (R$15,375.88k). This heavy reliance on one time buyers indicates a lack of customer retention. it can be risky for long term growth as acquiring new customers is often more expensive than retaining existing ones. 
+The figure shown 97% customer are one time buyer,which generate the R$14,515.12k revenue , the bulk of total revenue (R$15,375.88k). This heavy reliance on one time buyers indicates a lack of customer retention. it can be risky for long term growth as acquiring new customers is often more expensive than retaining existing ones.<br/>
 
-  
-**Q:How loyal are our customers? How recently did they make their last purchase?**
+**Q:How loyal are our customers? How recently did they make their last purchase?**<br/>
+
 **6.2 Customer Activity and Value Breakdown**
  
 <details>

@@ -575,8 +575,8 @@ LIMIT 1;
 
 The Pareto principle (80/20 rule) typically suggests that 80% of revenue comes from 20% of customers. Here, 80% of revenue comes from 48.85% of customers, indicating a less concentrated distribution.
 
-### 7. Key Findings & Recommendations 
-### 8. Tableau Dashboard 
+### 7. Key Findings & Recommendations --> [Stakeholder Presentation](https://docs.google.com/presentation/d/1BANIRmxoFIX8FTlIWr5cwrdrE1XaBONxXXgfg82vAS0/edit?usp=sharing)
+### 8. Tableau Dashboard --> [Olist E-Commerce Performance and Customers Insights](https://public.tableau.com/app/profile/ying.zhang2739/viz/OlistE-CommercePerformanceandCustomersInsights/KPIsSummary)
 
 
 

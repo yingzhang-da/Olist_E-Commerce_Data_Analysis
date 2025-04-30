@@ -8,7 +8,7 @@
 2. About the Dataset
    - 2.1 Data Description
    - 2.2 Data Limitations
-3. Tools & Technologies
+3. Data Analysis Tools
 4. Data Preprocessing
    - 4.1 Data Cleaning
    - 4.2 Database Setup
@@ -25,12 +25,13 @@
    - 6.3 Payment Method Preferences
    - 6.4 Weekly Customer Activity by Hour
    - 6.5 Optional: Pareto Analysis(80/20 Principle)
-7. Key Findings & Recommendations -> 
-8. Tableau Dashboard Link
+7. Key Findings & Recommendations 
+8. Tableau Dashboard
 
 ### 1. Introduction
 
 **1.1 Context**  
+
 This dataset was generously provided by Olist, the largest department store in Brazilian marketplaces. Olist connects small businesses from all over Brazil to channels without hassle and with a single contract. Those merchants are able to sell their products through the Olist Store and ship them directly to customers using Olist logistics partners.<br/>
 
 **1.2 Objective**
@@ -316,7 +317,7 @@ Undoubtedly,over 60% of revenue comes from SP, RJ, and MG.As the most populous a
 
 **5.5 Product Category Performance**
 
-**Q:Which products generate the highest number of orders, and which do not?**
+**Q:Which products are top performers and which are underperforming?**
 
 <details>
 <summary> Show Top 5 Product Categories Query</summary>
@@ -380,6 +381,7 @@ High-demand categories such as Bed & Bath, Health & Beauty, and Sports & Leisure
 Low-demand categories such as security and services,fashion childrens clothes indicate niche markets or declining relevance. Consider reducing stock or reevaluating their place in the catalog.<br/>
 
 **5.6 Customer Review Analysis**
+**Q:What patterns emerge by order status and review ratings?**
 
 <details>
 <summary> Show SQL Query: the number of reviews grouped by each rating score </summary>
@@ -414,17 +416,19 @@ Customer reviews significantly influence purchasing decisions, often determining
   <img src="https://github.com/user-attachments/assets/c8022b2f-da58-453c-8cd8-8ec81174e6af" width="580" />
 </p>
 
+1.
 The depicted figure shows the average rating trend line as order volume fluctuates. The negative correlation observed between order volume peaks and rating declines indicates that service quality may encounter challenges in maintaining its standards as demand increases. 
 
 The lowest average review scores occurred around November 24, 2017, and March 2, 2018 — both of which align with major holidays in Brazil (Black Friday and Carnival, respectively). These periods likely experienced a surge in order volume, which may have strained logistics and customer service, resulting in a dip in customer satisfaction.
 
 This highlights the critical need for proactive operational planning during high-demand seasons to preserve customer experience.
 
+2.
 When filtering for orders with a 'canceled' status, the overall average review score drops below 3. This indicates a strong correlation between order cancellations and negative customer experiences.<br/>
 
 ### 6. Customer Segmentation & Behavior Analysis
 
-**Q:How do customers interact to out platform? How many are one-time buyers vs. repeat customers?**<br/>
+**Q:How do customers engage with the platform( one-time vs. repeat purchases)?**
 
 **6.1 RFM Customer Group Distribution**
 
@@ -571,8 +575,8 @@ LIMIT 1;
 
 The Pareto principle (80/20 rule) typically suggests that 80% of revenue comes from 20% of customers. Here, 80% of revenue comes from 48.85% of customers, indicating a less concentrated distribution.
 
-7. Key Findings & Recommendations -> 
-8. Tableau Dashboard Link
+### 7. Key Findings & Recommendations 
+### 8. Tableau Dashboard 
 
 
 

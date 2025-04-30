@@ -30,7 +30,7 @@
 
 ### 1. Introduction
 
-**1.1 Context**
+**1.1 Context**  
 This dataset was generously provided by Olist, the largest department store in Brazilian marketplaces. Olist connects small businesses from all over Brazil to channels without hassle and with a single contract. Those merchants are able to sell their products through the Olist Store and ship them directly to customers using Olist logistics partners.<br/>
 
 **1.2 Objective**
@@ -39,7 +39,6 @@ This dataset was generously provided by Olist, the largest department store in B
 - Analyzing sales, order volume, and customer data to identify key challenges, uncover growth opportunities, and deliver actionable recommendations to optimize platform performance.
 
 **1.3 Business Questions to Ask:**
-To effectively address Olist's e-commerce challenges, the following business questions will guide the analysis:
 
 1. Platform Sales
 
@@ -47,21 +46,20 @@ To effectively address Olist's e-commerce challenges, the following business que
 
 - How are sales orders distributed across different geographical regions?
 
-- What patterns can be observed in order volume and behavior when segmented by order status and associated review ratings?
+- What patterns emerge by order status and review ratings?
 
-- Which products generate the highest number of orders, and which underperform?
+- Which products are top performers and which are underperforming?
 
 
 2. Customer
 - Who are our customers and are they concentrated in specific regions?
 
-- How do customers interact to our platform and what is the proportion of one-time buyers versus repeat customers?
+- How do customers engage with the platform( one-time vs. repeat purchases)?
   
-- How loyal are our customers, and how recently did they make their last purchase?
+- How loyal are customers, and when did they last purchase?
 
-- Are there specific customer segments worth targeting for marketing or retention efforts?
+- Which customer segments should be targeted for marketing or retention?
 
-- Are there any identifiable issues in customer experience that need to be addressed?<br/>
 
 
 ### 2. About Dataset
@@ -130,11 +128,13 @@ Columns:
 `product_category_name`
 
 **2.2 Data Limitations**
-The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**. However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. To ensure data reliability and analytical consistency, the date range of this analysis has been limited to the period between January 1, 2017 and August 31, 2018.<br/>
+The dataset covers the period from **Sep 4, 2016 to Oct 17, 2018**. However, **the data from 2016 is highly skewed**, with only 329 orders recorded, indicating limited activity or incomplete records for that year. Additionally, the data between **Sep 1, 2018 and Oct 17, 2018** also appears to be incomplete or less consistent. To ensure data reliability and analytical consistency, the date range of this analysis has been limited to the period between January 1, 2017 and August 31, 2018.
+
 
 
 ### 3. Data Analysis tool
 For this project, I used MySQL Server to manage and structure all the datasets, ensuring their organization and accessibility. MySQL was integrated with Tableau to develop an interactive Olist e-commerce dashboard. For advanced analyses,such as customer segmentation, I crafted SQL queries in MySQL to process the data, then imported the results into Tableau to create insightful visualizations for informed decision-making.  To maintain data consistency between MySQL and Tableau, I documented the SQL queries used for data extraction and preparation, ensuring seamless alignment across both tools.<br/>
+
 
 ### 4. Data Preprocessing
 **4.1 Data Cleaning:** I used Excel to perform data cleaning and preprocessing for each CSV file prior to importing into MySQL. 

@@ -34,7 +34,9 @@
 This dataset was generously provided by Olist, the largest department store in Brazilian marketplaces. Olist connects small businesses from all over Brazil to channels without hassle and with a single contract. Those merchants are able to sell their products through the Olist Store and ship them directly to customers using Olist logistics partners.<br/>
 
 **1.2 Objective**
-To assess the performance of the Olist e-commerce platform by conducting a thorough analysis of sales and customer metrics using an interactive Tableau dashboard. The goal is to identify operational challenges, uncover growth opportunities, and deliver actionable insights to optimize platform performance.<br/>
+- Creating and structuring a MySQL database to store and query Olist e-commerce data, supporting data exploration, KPI reporting, and dashboard visualization.
+- Developing an interactive Tableau dashboard integrated with MySQL, visualizing sales performance and customer behavior for stakeholder use.
+- Analyzing sales, order volume, and customer data to identify key challenges, uncover growth opportunities, and deliver actionable recommendations to optimize platform performance.
 
 **1.3 Business Questions to Ask:**
 To effectively address Olist's e-commerce challenges, the following business questions will guide the analysis:
